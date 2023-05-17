@@ -1,6 +1,6 @@
 import csv
 import pandas as pd
-
+"""
 with open("/Users/pampaj/Desktop/DataSet/dblp-all-csv/Prove/ProvaTabella.csv", 'rt') as f:
     data = csv.reader(f)
     line_count = 0
@@ -18,6 +18,8 @@ with open("/Users/pampaj/Desktop/DataSet/dblp-all-csv/DataSetType.csv", "rt") as
     dataz = csv.reader(big)
     for row in dataz:
         print(row) 
+"""
+
+df = pd.read_csv("/Users/pampaj/PycharmProjects/AdvanceAlgorithmsProject/Dataset/DataSetTypeSmaller.csv", skiprows=[13, 32])
 
 
-prova = pd.read_csv("/Users/pampaj/PycharmProjects/AdvanceAlgorithmsProject/Dataset/DataSetType.csv")
