@@ -2,7 +2,7 @@ import pandas as pd
 import networkx as nx
 
 # Leggi il file CSV del dataset utilizzando Pandas
-dataset_path = "/Users/pampaj/Desktop/DataSet/dblp-all-csv/DataSetType.csv"
+dataset_path = "/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_article.csv"
 data = pd.read_csv(dataset_path)
 
 # Crea un grafo bipartito vuoto
