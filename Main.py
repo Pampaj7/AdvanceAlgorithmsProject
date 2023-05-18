@@ -1,5 +1,8 @@
+from matplotlib import pyplot as plt
+
 import BuildBipartiteGraph as bbg
 import ExeptionCatcherCsv as ecc
+import networkx as nx
 
 dataset_file = 'Dataset/DataSetTypeSmaller.csv'
 
@@ -38,3 +41,16 @@ for author_num, author_node in bipartite_graph.graph['reverse_author_dict'].item
 print("\nReverse Publication Dictionary:")
 for publication_num, publication_node in bipartite_graph.graph['reverse_publication_dict'].items():
     print(f"{publication_num}: {publication_node}")
+
+pos = nx.kamada_kawai_layout(bipartite_graph)
+
+node_color = ['blue' if 'Author:' in node else 'red' for node in bipartite_graph.nodes()]
+edge_color = 'gray'
+node_size = 50
+edge_alpha = 0.5
+
+plt.figure(figsize=(10, 8))
+
+nx.draw(bipartite_graph, pos=pos, with_labels=False, node_color=node_color, edge_color=edge_color, node_size=node_size,
+        alpha=edge_alpha)
+plt.show()
