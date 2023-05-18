@@ -4,9 +4,9 @@ import math
 import ProgressionBar as pb
 
 
-##TODO node of the BIgraph with Source Author and Destination is a Publication
+# TODO node of the BIgraph with Source Author and Destination is a Publication
 # TODO componente connessa
-#TODO diametro
+# TODO diametro
 def create_bipartite_graph(dataset):
     G = nx.Graph()
 
