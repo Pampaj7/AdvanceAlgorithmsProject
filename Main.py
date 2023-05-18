@@ -4,6 +4,9 @@ import math
 import ProgressionBar as pb
 
 
+##TODO node of the BIgraph with Source Author and Destination is a Publication
+# TODO componente connessa
+#TODO diametro
 def create_bipartite_graph(dataset):
     G = nx.Graph()
 
@@ -17,6 +20,12 @@ def create_bipartite_graph(dataset):
             author_dict[author] = len(author_dict)
             reverse_author_dict[len(reverse_author_dict)] = author
 
+    def create_node():
+        for row in dataset:
+            authors = dataset.iloc[row]['author']
+            authors = authors.split('|')
+
+
     def add_publication(publication_id, row):
         if publication_id not in publication_dict:
             publication_dict[publication_id] = len(publication_dict)
@@ -27,7 +36,7 @@ def create_bipartite_graph(dataset):
                 label += f", Venue: {row['booktitle']}"
             G.add_node(publication_dict[publication_id], label=label)
 
-    for index, row in dataset.iterrows():
+    for index, row in dataset.iterrows():  # TODO porta a lineare
         pb.print_progress_bar(index, len(dataset), prefix='Progress:', suffix='Complete', length=50)
         authors = row['author']
         if isinstance(authors, str):
@@ -36,13 +45,13 @@ def create_bipartite_graph(dataset):
         elif isinstance(authors, float) and math.isnan(authors):
             continue
 
-        for author in authors:
+        for author in authors:  # TODO find better way
             add_author(author)
             G.add_edge(author_dict[author], publication_dict.get(publication_id, len(publication_dict)))
 
         add_publication(publication_id, row)
 
-    G.graph['author_dict'] = author_dict
+    G.graph['author_dict'] = author_dict  # TODO each node must be an author and a publication
     G.graph['publication_dict'] = publication_dict
     G.graph['reverse_author_dict'] = reverse_author_dict
     G.graph['reverse_publication_dict'] = reverse_publication_dict
@@ -50,7 +59,7 @@ def create_bipartite_graph(dataset):
     return G
 
 
-out_dblp_article = pd.read_csv('/Users/pampaj/Desktop/DataSet/dblp-all-csv/Prove/DataSetTypeSmaller.csv',
+out_dblp_article = pd.read_csv('Dataset/DataSetTypeSmaller.csv',
                                skiprows=[13, 32], sep=';')
 
 bipartite_graph_article = create_bipartite_graph(out_dblp_article)
