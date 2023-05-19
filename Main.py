@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 import BuildBipartiteGraph as bbg
 import ExeptionCatcherCsv as ecc
 import networkx as nx
+import Find_oldest_venue as fov
 
 dataset_file = 'Dataset/DataSetTypeSmaller.csv'
 
@@ -55,7 +56,13 @@ nx.draw(bipartite_graph, pos=pos, with_labels=False, node_color=node_color, edge
         alpha=edge_alpha)
 plt.show()
 
+# *---------------------------------------* end bipGraph construction and print
 
-print(bipartite_graph.graph['venue_dict'])
-print(min( bipartite_graph.graph['venue_dict'], key= bipartite_graph.graph['venue_dict'].get))#trova il miglior venue
 
+# *---------------------------------------* 1 --> First question
+
+
+oldest_venue = fov.find_oldest_venue(bipartite_graph)
+print("The oldest venue is:", oldest_venue)
+
+# *---------------------------------------* 1 --> end question

@@ -11,7 +11,6 @@ def build_bipartite_graph(dataset):
     reverse_author_dict = {}
     reverse_publication_dict = {}
     venue_dict = {}
-    #year_dict = {}
 
     # function for creating the dictionary and his inverse
     def creating_dictionary(node_dict, reverse_dict, node):
@@ -22,24 +21,44 @@ def build_bipartite_graph(dataset):
 
     # Create nodes for authors and publications
     for index, row in dataset.iterrows():  # common iteration
+
         pb.print_progress_bar(index, len(dataset), prefix='Progress:', suffix='Complete', length=50)  # progress bar
 
         authors = row['author']
-        if isinstance(authors, str):  # control for strange types
-            venue_dict[row['journal']] = row['year']
+        if isinstance(authors, str):
+            venue_dict[row['journal']] = {
+                'year': row['year'],
+                'title': row['title'],
+                'pages': row['pages'],
+                'publisher': row['publisher'],
+                'venue': row['journal']
+            }
             authors = authors.split('|')
             publication_id = row['id']
         elif isinstance(authors, float) and math.isnan(authors):
             continue
 
-        for author in authors:  # chat gpt suggest to add "author" for each author--> used to output
+        for author in authors:
             author_node = "Author:" + author
             publication_node = "Publication:" + str(publication_id)
 
             G.add_edge(author_node, publication_node)
-            # this magic function automatically use the add_node to the graph --># networkx is black magic
 
-            # Add author and publication nodes to dictionaries
+            G.nodes[author_node]['label'] = {  # per ogni autore adesso hanno una label con nome e tipo
+                'type': 'author',
+                'name': author
+            }
+
+            G.nodes[publication_node]['label'] = {  # idem qui con tutte le info
+                'type': 'publication',
+                'id': publication_id,
+                'year': row['year'],
+                'title': row['title'],
+                'pages': row['pages'],
+                'publisher': row['publisher'],
+                'venue': row['journal']
+            }
+
             creating_dictionary(author_dict, reverse_author_dict, author_node)
             creating_dictionary(publication_dict, reverse_publication_dict, publication_node)
 
@@ -59,7 +78,4 @@ def build_bipartite_graph(dataset):
     G.graph['publication_dict'] = publication_dict
     G.graph['reverse_author_dict'] = reverse_author_dict
     G.graph['reverse_publication_dict'] = reverse_publication_dict
-    #G.graph['year_dict'] = year_dict
-    G.graph['venue_dict'] = venue_dict
-
     return G
