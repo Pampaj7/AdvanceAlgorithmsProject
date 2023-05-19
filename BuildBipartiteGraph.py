@@ -10,6 +10,7 @@ def build_bipartite_graph(dataset):
     publication_dict = {}
     reverse_author_dict = {}
     reverse_publication_dict = {}
+    venue_dict = {}
 
     # function for creating the dictionary and his inverse
     def creating_dictionary(node_dict, reverse_dict, node):
