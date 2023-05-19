@@ -54,3 +54,6 @@ plt.figure(figsize=(10, 8))
 nx.draw(bipartite_graph, pos=pos, with_labels=False, node_color=node_color, edge_color=edge_color, node_size=node_size,
         alpha=edge_alpha)
 plt.show()
+
+
+print(bipartite_graph.graph['venue_dict'])

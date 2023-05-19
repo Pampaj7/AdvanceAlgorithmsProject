@@ -11,6 +11,7 @@ def build_bipartite_graph(dataset):
     reverse_author_dict = {}
     reverse_publication_dict = {}
     venue_dict = {}
+    #year_dict = {}
 
     # function for creating the dictionary and his inverse
     def creating_dictionary(node_dict, reverse_dict, node):
@@ -22,6 +23,7 @@ def build_bipartite_graph(dataset):
     # Create nodes for authors and publications
     for index, row in dataset.iterrows():  # common iteration
         pb.print_progress_bar(index, len(dataset), prefix='Progress:', suffix='Complete', length=50)  # progress bar
+        venue_dict[row['journal']] = row['year']
         authors = row['author']
         if isinstance(authors, str):  # control for strange types
             authors = authors.split('|')
@@ -56,5 +58,7 @@ def build_bipartite_graph(dataset):
     G.graph['publication_dict'] = publication_dict
     G.graph['reverse_author_dict'] = reverse_author_dict
     G.graph['reverse_publication_dict'] = reverse_publication_dict
+    #G.graph['year_dict'] = year_dict
+    G.graph['venue_dict'] = venue_dict
 
     return G
