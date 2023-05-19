@@ -57,3 +57,5 @@ plt.show()
 
 
 print(bipartite_graph.graph['venue_dict'])
+print(min( bipartite_graph.graph['venue_dict'], key= bipartite_graph.graph['venue_dict'].get))#trova il miglior venue
+

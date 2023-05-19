@@ -23,9 +23,10 @@ def build_bipartite_graph(dataset):
     # Create nodes for authors and publications
     for index, row in dataset.iterrows():  # common iteration
         pb.print_progress_bar(index, len(dataset), prefix='Progress:', suffix='Complete', length=50)  # progress bar
-        venue_dict[row['journal']] = row['year']
+
         authors = row['author']
         if isinstance(authors, str):  # control for strange types
+            venue_dict[row['journal']] = row['year']
             authors = authors.split('|')
             publication_id = row['id']
         elif isinstance(authors, float) and math.isnan(authors):
