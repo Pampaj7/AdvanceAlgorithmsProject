@@ -78,4 +78,5 @@ def build_bipartite_graph(dataset):
     G.graph['publication_dict'] = publication_dict
     G.graph['reverse_author_dict'] = reverse_author_dict
     G.graph['reverse_publication_dict'] = reverse_publication_dict
+
     return G

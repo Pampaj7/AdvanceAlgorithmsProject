@@ -4,8 +4,10 @@ import BuildBipartiteGraph as bbg
 import ExeptionCatcherCsv as ecc
 import networkx as nx
 import Find_oldest_venue as fov
+import LowerBound as lw
+import Diameter as d
 
-dataset_file = 'Dataset/DataSetTypeSmaller.csv'
+dataset_file = '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_article.csv'
 
 # exception handler for reading file
 dataset = ecc.read_csv_ignore_errors(dataset_file)
@@ -43,7 +45,7 @@ print("\nReverse Publication Dictionary:")
 for publication_num, publication_node in bipartite_graph.graph['reverse_publication_dict'].items():
     print(f"{publication_num}: {publication_node}")
 
-pos = nx.kamada_kawai_layout(bipartite_graph)
+pos = nx.random_layout(bipartite_graph)
 
 node_color = ['blue' if 'Author:' in node else 'red' for node in bipartite_graph.nodes()]
 edge_color = 'gray'
@@ -60,10 +62,17 @@ plt.show()
 
 
 # *---------------------------------------* 1 --> First question
-
-
 oldest_venue = fov.find_oldest_venue(bipartite_graph)
 print("The oldest venue is:", oldest_venue)
 
 # *---------------------------------------* 1 --> end question
+
+
+# *---------------------------------------* 2 --> Diameter question
+
+#altezza, last_node = lw.lower_Bound(bipartite_graph)
+#print(altezza, last_node)
+
+#cazz = d.calcola_diametro_grafo(bipartite_graph)
+#print(cazz)
 
