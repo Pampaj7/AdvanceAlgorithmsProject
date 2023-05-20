@@ -2,6 +2,8 @@ import networkx as nx
 import random
 from collections import deque
 
+from matplotlib import pyplot as plt
+
 """
 # lower bound
 
@@ -85,8 +87,8 @@ def lower_Bound(G):
     # Trova il nodo più distante da x nel sottografo rimanente
     treeXY = nx.bfs_tree(G.subgraph(treeRX.nodes - [x]), source=x)
     distXY, y = calcola_altezza_Albero(treeXY)
-    print('distanza: '+distRX)
-    print('ultimo elemento: '+x)
+    print('distanza: ' + distRX)
+    print('ultimo elemento: ' + x)
     lower_bound = distRX + distXY
 
     return lower_bound
@@ -123,5 +125,23 @@ def calcola_altezza_Albero(grafo):
 
 
 # Esempio di utilizzo
-grafo = nx.Graph()
-grafo.add_edges_from([('A', 'B'), ('A', 'C'), ('A', 'D'), ('B', 'D'), ('B', 'C')])
+grafo = nx.fast_gnp_random_graph(10, 0.4)
+
+altmax, nodmax = calcola_altezza_Albero(grafo)
+print(altmax, nodmax)
+
+print(nx.eccentricity(grafo))
+
+print(nx.eccentricity(grafo).values())
+pos = nx.random_layout(grafo)
+
+node_color = 'blue'
+edge_color = 'gray'
+node_size = 200
+edge_alpha = 0.5
+
+plt.figure(figsize=(10, 8))
+
+nx.draw(grafo, pos=pos, with_labels=True, node_color=node_color, edge_color=edge_color, node_size=node_size,
+        alpha=edge_alpha)
+plt.show()

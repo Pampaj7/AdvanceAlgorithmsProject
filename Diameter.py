@@ -1,6 +1,11 @@
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
+
+import BuildBipartiteGraph as bbg
+import ExeptionCatcherCsv as ecc
 import networkx as nx
-import random
+import Find_oldest_venue as fov
+import LowerBound as lw
+import Diameter as d
 
 """
 # Create graph
@@ -22,44 +27,48 @@ nx.draw_networkx_edges(G, edge_color='r', edgelist=l_s_path_edges, pos=pos)
 plt.show()
 """
 
+import networkx as nx
+from collections import deque
 
-#####################  WARSHALL ################
+
 def calcola_diametro_grafo(grafo):
-    distanze = {}  # Dizionario per memorizzare le distanze tra i nodi
-
-    # Inizializza la matrice delle distanze con valore infinito per tutte le coppie di nodi
-    for u in grafo.nodes():
-        distanze[u] = {}
-        for v in grafo.nodes():
-            if u == v:
-                distanze[u][v] = 0
-            else:
-                distanze[u][v] = float('inf')
-
-    # Aggiorna le distanze tra i nodi adiacenti nel grafo
-    for u, v in grafo.edges():
-        distanze[u][v] = 1
-        distanze[v][u] = 1
-
-    # Calcola le distanze minime tra tutte le coppie di nodi utilizzando l'algoritmo di Floyd-Warshall
-    for k in grafo.nodes():
-        for u in grafo.nodes():
-            for v in grafo.nodes():
-                distanze[u][v] = min(distanze[u][v], distanze[u][k] + distanze[k][v])
-
-    # Trova la distanza massima tra tutte le coppie di nodi nel grafo
     diametro = 0
-    for u in grafo.nodes():
-        for v in grafo.nodes():
-            if distanze[u][v] != float('inf'):
-                diametro = max(diametro, distanze[u][v])
+
+    for nodo in grafo.nodes():
+        distanze = {nodo: 0}
+        coda = deque([nodo])
+
+        while coda:
+            u = coda.popleft()
+
+            for v in grafo[u]:
+                if v not in distanze:
+                    distanze[v] = distanze[u] + 1
+                    coda.append(v)
+
+        max_distanza = max(distanze.values())
+        diametro = max(diametro, max_distanza)
 
     return diametro
 
 
 # Esempio di utilizzo
-grafo = nx.Graph()
-grafo.add_edges_from([(1, 2), (1, 3), (2, 3), (3, 4), (4, 5)])
+grafo = nx.fast_gnp_random_graph(100, 1)
+pos = nx.circular_layout(grafo)
+
+node_color = 'blue'
+edge_color = 'gray'
+node_size = 50
+edge_alpha = 0.5
+
+plt.figure(figsize=(10, 8))
+
+nx.draw(grafo, pos=pos, with_labels=False, node_color=node_color, edge_color=edge_color, node_size=node_size,
+        alpha=edge_alpha)
+plt.show()
 
 diametro_grafo = calcola_diametro_grafo(grafo)
+print("Il diametro del grafo è tramite il nostro codice è:", diametro_grafo)
+
+diametro_grafo = nx.diameter(grafo)
 print("Il diametro del grafo è:", diametro_grafo)

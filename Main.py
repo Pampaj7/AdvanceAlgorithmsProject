@@ -7,7 +7,7 @@ import Find_oldest_venue as fov
 import LowerBound as lw
 import Diameter as d
 
-dataset_file = '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_article.csv'
+dataset_file = 'Dataset/DataSetTypeSmaller.csv'
 
 # exception handler for reading file
 dataset = ecc.read_csv_ignore_errors(dataset_file)
