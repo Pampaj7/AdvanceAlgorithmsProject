@@ -85,7 +85,9 @@ def lower_Bound(G):
     distRX, x = calcola_altezza_Albero(treeRX)
 
     # Trova il nodo più distante da x nel sottografo rimanente
-    treeXY = nx.bfs_tree(G.subgraph(treeRX.nodes - [x]), source=x)
+    # treeXY = nx.bfs_tree(G.subgraph(treeRX.nodes - [x]), source=x)
+    treeXY = nx.bfs_tree(G, source=x)
+
     distXY, y = calcola_altezza_Albero(treeXY)
     print('distanza: ' + distRX)
     print('ultimo elemento: ' + x)
