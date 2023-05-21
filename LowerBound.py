@@ -93,12 +93,18 @@ def max_Ecc(G):
 
 def lower_Bound(G):
     source = random.choice(list(G.nodes))
+
+    max_value = min(nx.eccentricity(G), key=nx.eccentricity(G).get)
+    print('ecc ', max_value)
     treeRX = nx.bfs_tree(G, source=source)
-    distRX, x = calcola_altezza_Albero(treeRX)
+    distRX, x = calcola_altezza_Albero(treeRX, nodo_radice=source)
+    print('source: ', source)
 
     # Trova il nodo più distante da x nel sottografo rimanente
     # treeXY = nx.bfs_tree(G.subgraph(treeRX.nodes - [x]), source=x)
     treeXY = nx.bfs_tree(G, source=x)
+    print('x: ', x)
+    print()
 
     distXY, y = calcola_altezza_Albero(treeXY, nodo_radice=x)
     print('distanza: ', distRX)
@@ -108,9 +114,7 @@ def lower_Bound(G):
     return lower_bound
 
 
-def calcola_altezza_Albero(grafo):
-    nodo_radice = random.choice(list(grafo.nodes))
-
+def calcola_altezza_Albero(grafo, nodo_radice):
     # Dizionario per tenere traccia dei livelli dei nodi
     livelli = {nodo: -1 for nodo in grafo}
     livelli[nodo_radice] = 0
@@ -146,7 +150,7 @@ print('altezza max: ', altmax, 'nodo + distante: ', nodmax)
 
 print('lower bound: ', lower_Bound(grafo))
 
-print(nx.eccentricity(grafo))
+print('upper bound: ', nx.eccentricity(grafo))  # TODO finire
 
 print(nx.eccentricity(grafo).values())
 
