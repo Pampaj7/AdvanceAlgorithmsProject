@@ -45,14 +45,14 @@ print("\nReverse Publication Dictionary:")
 for publication_num, publication_node in bipartite_graph.graph['reverse_publication_dict'].items():
     print(f"{publication_num}: {publication_node}")
 
-pos = nx.random_layout(bipartite_graph)
+pos = nx.circular_layout(bipartite_graph)
 
 node_color = ['blue' if 'Author:' in node else 'red' for node in bipartite_graph.nodes()]
 edge_color = 'gray'
-node_size = 50
+node_size = 1
 edge_alpha = 0.5
 
-plt.figure(figsize=(10, 8))
+plt.figure(figsize=(100, 80))
 
 nx.draw(bipartite_graph, pos=pos, with_labels=False, node_color=node_color, edge_color=edge_color, node_size=node_size,
         alpha=edge_alpha)
@@ -70,9 +70,9 @@ print("The oldest venue is:", oldest_venue)
 
 # *---------------------------------------* 2 --> Diameter question
 
-#altezza, last_node = lw.lower_Bound(bipartite_graph)
-#print(altezza, last_node)
+# altezza, last_node = lw.lower_Bound(bipartite_graph)
+# print(altezza, last_node)
 
-#cazz = d.calcola_diametro_grafo(bipartite_graph)
-#print(cazz)
-
+# cazz = d.calcola_diametro_grafo(bipartite_graph)
+# print(cazz)
+print(d.calcola_diametro_grafo(bipartite_graph))

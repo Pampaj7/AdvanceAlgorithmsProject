@@ -79,6 +79,18 @@ print('Ultimo nodo è: '+x)
 """
 
 
+def max_Ecc(G):
+    s_dict = nx.eccentricity(G)
+
+    max_value = max(s_dict.items(), key=lambda x: x[1])
+    max_index = max_value[0]
+    max_eccentricity = max_value[1]
+
+    print("Nodo con eccentricità max:", max_index)
+    print("Valore di eccentricità max:", max_eccentricity)
+    return max_index, max_eccentricity
+
+
 def lower_Bound(G):
     source = random.choice(list(G.nodes))
     treeRX = nx.bfs_tree(G, source=source)
@@ -88,9 +100,9 @@ def lower_Bound(G):
     # treeXY = nx.bfs_tree(G.subgraph(treeRX.nodes - [x]), source=x)
     treeXY = nx.bfs_tree(G, source=x)
 
-    distXY, y = calcola_altezza_Albero(treeXY)
-    print('distanza: ' + distRX)
-    print('ultimo elemento: ' + x)
+    distXY, y = calcola_altezza_Albero(treeXY, nodo_radice=x)
+    print('distanza: ', distRX)
+    print('ultimo elemento: ', x)
     lower_bound = distRX + distXY
 
     return lower_bound
@@ -127,14 +139,17 @@ def calcola_altezza_Albero(grafo):
 
 
 # Esempio di utilizzo
-grafo = nx.fast_gnp_random_graph(10, 0.4)
+grafo = nx.fast_gnp_random_graph(20, 0.9)
 
-altmax, nodmax = calcola_altezza_Albero(grafo)
-print(altmax, nodmax)
+altmax, nodmax = calcola_altezza_Albero(grafo, random.choice(list(grafo.nodes)))
+print('altezza max: ', altmax, 'nodo + distante: ', nodmax)
+
+print('lower bound: ', lower_Bound(grafo))
 
 print(nx.eccentricity(grafo))
 
 print(nx.eccentricity(grafo).values())
+
 pos = nx.random_layout(grafo)
 
 node_color = 'blue'
