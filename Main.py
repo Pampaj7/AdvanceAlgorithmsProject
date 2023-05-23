@@ -6,6 +6,7 @@ import networkx as nx
 import Find_oldest_venue as fov
 import LowerBound as lw
 import Diameter as d
+import AuthorMaxCollab as amc
 
 dataset_file = 'Dataset/DataSetTypeSmaller.csv'
 
@@ -56,12 +57,13 @@ plt.figure(figsize=(100, 80))
 
 nx.draw(bipartite_graph, pos=pos, with_labels=False, node_color=node_color, edge_color=edge_color, node_size=node_size,
         alpha=edge_alpha)
-plt.show()
+# plt.show() # faceva casino sulla compilazione
 
 # *---------------------------------------* end bipGraph construction and print
 
 
 # *---------------------------------------* 1 --> First question
+
 oldest_venue = fov.find_oldest_venue(bipartite_graph)
 print("The oldest venue is:", oldest_venue)
 
@@ -76,3 +78,13 @@ print("The oldest venue is:", oldest_venue)
 # cazz = d.calcola_diametro_grafo(bipartite_graph)
 # print(cazz)
 print(d.calcola_diametro_grafo(bipartite_graph))
+
+# *---------------------------------------* 2 --> end question
+
+
+# *---------------------------------------* 3 --> Author max collab
+
+author, numCollab = amc.find_author_with_most_collaborations(bipartite_graph)
+print("L'autore con massimo numero di collaborazioni è: ", author, "con numero di collaborazioni: ", numCollab)
+
+# *---------------------------------------* 3 --> End Author max collab

@@ -1,12 +1,5 @@
 from matplotlib import pyplot as plt
 
-import BuildBipartiteGraph as bbg
-import ExeptionCatcherCsv as ecc
-import networkx as nx
-import Find_oldest_venue as fov
-import LowerBound as lw
-import Diameter as d
-
 """
 # Create graph
 G = nx.fast_gnp_random_graph(10, 0.3)
@@ -54,7 +47,7 @@ def calcola_diametro_grafo(grafo):
 
 # Esempio di utilizzo
 grafo = nx.fast_gnp_random_graph(100, 1)
-pos = nx.circular_layout(grafo)
+pos = nx.random_layout(grafo)
 
 node_color = 'blue'
 edge_color = 'gray'
