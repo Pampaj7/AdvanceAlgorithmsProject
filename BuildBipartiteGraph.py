@@ -34,6 +34,7 @@ def build_bipartite_graph(dataset):
                 'venue': row['journal']
             }
             authors = authors.split('|')
+
             publication_id = row['id']
         elif isinstance(authors, float) and math.isnan(authors):
             continue
