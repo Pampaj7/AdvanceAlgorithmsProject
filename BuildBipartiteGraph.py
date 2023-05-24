@@ -3,7 +3,7 @@ import ProgressionBar as pb
 import math
 
 
-def build_bipartite_graph(dataset):
+def build_bipartite_graph(dataset, mDate=2016):
     G = nx.Graph()
 
     author_dict = {}
@@ -25,7 +25,9 @@ def build_bipartite_graph(dataset):
         pb.print_progress_bar(index, len(dataset), prefix='Progress:', suffix='Complete', length=50)  # progress bar
 
         authors = row['author']
-        if isinstance(authors, str):
+        paper_date = row['mdate']  # year-month-day
+        year_of_pub = paper_date.split('-')[0].strip()  # date is a list with at place 0 year
+        if isinstance(authors, str) and int(year_of_pub) <= mDate:  # strip elimina gli spazi dalla stringa
             venue_dict[row['journal']] = {
                 'year': row['year'],
                 'title': row['title'],
@@ -35,7 +37,7 @@ def build_bipartite_graph(dataset):
             }
             authors = authors.split('|')
             publication_id = row['id']
-        elif isinstance(authors, float) and math.isnan(authors):
+        else:
             continue
 
         for author in authors:
