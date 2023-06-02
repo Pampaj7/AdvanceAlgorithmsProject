@@ -11,17 +11,21 @@ import AuthorMaxCollab as amc
 dataset_file = '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_article.csv'
 
 # exception handler for reading file
-dataset = ecc.read_csv_ignore_errors(dataset_file)
+#dataset = ecc.read_csv_ignore_errors(dataset_file)
 
 # Build bipartite graph
-bipartite_graph = bbg.build_bipartite_graph(dataset)
+bipartite_graph = bbg.build_bipartite_graph(ecc.read_csv_ignore_errors(dataset_file))
 
+"""
 print(" Author Nodes:")
-print('\n'.join(node for node in bipartite_graph.nodes() if node.startswith("Author:")), end="\n-----\n")
+print('\n'.join(node for node in bipartite_graph.nodes()
+      if node.startswith("Author:")), end="\n-----\n")
 print("Publication Nodes:")
-print('\n'.join(node for node in bipartite_graph.nodes() if node.startswith("Publication:")), end="\n-----\n")
+print('\n'.join(node for node in bipartite_graph.nodes()
+      if node.startswith("Publication:")), end="\n-----\n")
 
 # Print edges
+
 print("Edges:")
 for author, publication in bipartite_graph.edges():
     print(f"{author} --> {publication}")
@@ -45,19 +49,7 @@ for author_num, author_node in bipartite_graph.graph['reverse_author_dict'].item
 print("\nReverse Publication Dictionary:")
 for publication_num, publication_node in bipartite_graph.graph['reverse_publication_dict'].items():
     print(f"{publication_num}: {publication_node}")
-
-pos = nx.circular_layout(bipartite_graph)
-
-node_color = ['blue' if 'Author:' in node else 'red' for node in bipartite_graph.nodes()]
-edge_color = 'gray'
-node_size = 1
-edge_alpha = 0.5
-
-plt.figure(figsize=(100, 80))
-
-nx.draw(bipartite_graph, pos=pos, with_labels=False, node_color=node_color, edge_color=edge_color, node_size=node_size,
-        alpha=edge_alpha)
-# plt.show() # faceva casino sulla compilazione
+"""
 
 # *---------------------------------------* end bipGraph construction and print
 
@@ -65,7 +57,7 @@ nx.draw(bipartite_graph, pos=pos, with_labels=False, node_color=node_color, edge
 # *---------------------------------------* 1 --> First question
 
 oldest_venue = fov.find_oldest_venue(bipartite_graph)
-print("The oldest venue is:", oldest_venue)
+print(" The oldest venue is:", oldest_venue)
 
 # *---------------------------------------* 1 --> end question
 
@@ -77,7 +69,7 @@ print("The oldest venue is:", oldest_venue)
 
 # cazz = d.calcola_diametro_grafo(bipartite_graph)
 # print(cazz)
-print(d.calcola_diametro_grafo(bipartite_graph))
+print("Il diametro del grafo è: ", d.calcola_diametro_grafo(bipartite_graph))
 
 # *---------------------------------------* 2 --> end question
 
@@ -85,6 +77,7 @@ print(d.calcola_diametro_grafo(bipartite_graph))
 # *---------------------------------------* 3 --> Author max collab
 
 author, numCollab = amc.find_author_with_most_collaborations(bipartite_graph)
-print("L'autore con massimo numero di collaborazioni è: ", author, "con numero di collaborazioni: ", numCollab)
+print("L'autore con massimo numero di collaborazioni è: ",
+      author, "con numero di collaborazioni: ", numCollab)
 
 # *---------------------------------------* 3 --> End Author max collab

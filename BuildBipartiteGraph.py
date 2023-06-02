@@ -1,6 +1,5 @@
 import networkx as nx
 import ProgressionBar as pb
-import math
 
 
 def build_bipartite_graph(dataset, mDate=2016):
@@ -22,12 +21,14 @@ def build_bipartite_graph(dataset, mDate=2016):
     # Create nodes for authors and publications
     for index, row in dataset.iterrows():  # common iteration
 
-        pb.print_progress_bar(index, len(dataset), prefix='Progress:', suffix='Complete', length=50)  # progress bar
+        pb.print_progress_bar(index, len(), prefix='Progress:', suffix='Complete', length=50)  # progress bar
 
         authors = row['author']
         paper_date = row['mdate']  # year-month-day
-        year_of_pub = paper_date.split('-')[0].strip()  # date is a list with at place 0 year
-        if isinstance(authors, str) and int(year_of_pub) <= mDate:  # strip elimina gli spazi dalla stringa
+        # date is a list with at place 0 year
+        year_of_pub = paper_date.split('-')[0].strip()
+        # strip elimina gli spazi dalla stringa
+        if isinstance(authors, str) and int(year_of_pub) <= mDate:
             venue_dict[row['journal']] = {
                 'year': row['year'],
                 'title': row['title'],
@@ -44,7 +45,7 @@ def build_bipartite_graph(dataset, mDate=2016):
             author_node = "Author:" + author
             publication_node = "Publication:" + str(publication_id)
 
-            G.add_edge(author_node, publication_node)
+            G.add_edge(author_node, publication_node) # fa tutto qui
 
             G.nodes[author_node]['label'] = {  # per ogni autore adesso hanno una label con nome e tipo
                 'type': 'author',
@@ -55,14 +56,15 @@ def build_bipartite_graph(dataset, mDate=2016):
                 'type': 'publication',
                 'id': publication_id,
                 'year': row['year'],
-                'title': row['title'],
+                'title': row['title'], # se ci mettiamo un dizionario tipo colums si può associare vari nomi alla stessa struttura
                 'pages': row['pages'],
                 'publisher': row['publisher'],
                 'venue': row['journal']
             }
 
             creating_dictionary(author_dict, reverse_author_dict, author_node)
-            creating_dictionary(publication_dict, reverse_publication_dict, publication_node)
+            creating_dictionary(
+                publication_dict, reverse_publication_dict, publication_node)
 
     # Set dictionaries as graph attributes La riga G.graph['author_dict'] = author_dict imposta il dizionario
     # author_dict come attributo 'author_dict' del grafo G. Questo attributo può essere utilizzato per accedere al

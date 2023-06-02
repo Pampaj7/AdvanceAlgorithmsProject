@@ -37,5 +37,6 @@ print(f"periphery: {nx.periphery(G)}")
 print(f"density: {nx.density(G)}")
 
 pos = nx.circular_layout(G)  # Circular layout
-nx.draw(G, pos=pos, with_labels=True, node_size=500, font_size=10, edge_color='gray', node_color='skyblue')
+nx.draw(G, pos=pos, with_labels=True, node_size=500,
+        font_size=10, edge_color='gray', node_color='skyblue')
 plt.show()

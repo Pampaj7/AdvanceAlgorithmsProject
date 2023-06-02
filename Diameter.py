@@ -47,18 +47,6 @@ def calcola_diametro_grafo(grafo):
 
 # Esempio di utilizzo
 grafo = nx.fast_gnp_random_graph(100, 1)
-pos = nx.random_layout(grafo)
-
-node_color = 'blue'
-edge_color = 'gray'
-node_size = 50
-edge_alpha = 0.5
-
-plt.figure(figsize=(10, 8))
-
-nx.draw(grafo, pos=pos, with_labels=False, node_color=node_color, edge_color=edge_color, node_size=node_size,
-        alpha=edge_alpha)
-plt.show()
 
 diametro_grafo = calcola_diametro_grafo(grafo)
 print("Il diametro del grafo è tramite il nostro codice è:", diametro_grafo)
