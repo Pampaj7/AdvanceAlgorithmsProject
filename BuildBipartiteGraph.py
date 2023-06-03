@@ -2,7 +2,7 @@ import networkx as nx
 import ProgressionBar as pb
 
 
-def build_bipartite_graph(dataset, mDate=2016):
+def build_bipartite_graph(dataset, mDate=2020):
     G = nx.Graph()
 
     author_dict = {}
@@ -21,7 +21,7 @@ def build_bipartite_graph(dataset, mDate=2016):
     # Create nodes for authors and publications
     for index, row in dataset.iterrows():  # common iteration
 
-        pb.print_progress_bar(index, len(), prefix='Progress:', suffix='Complete', length=50)  # progress bar
+        pb.print_progress_bar(index, len(dataset), prefix='Progress:', suffix='Complete', length=50)  # progress bar
 
         authors = row['author']
         paper_date = row['mdate']  # year-month-day
@@ -29,13 +29,22 @@ def build_bipartite_graph(dataset, mDate=2016):
         year_of_pub = paper_date.split('-')[0].strip()
         # strip elimina gli spazi dalla stringa
         if isinstance(authors, str) and int(year_of_pub) <= mDate:
-            venue_dict[row['journal']] = {
-                'year': row['year'],
-                'title': row['title'],
-                'pages': row['pages'],
-                'publisher': row['publisher'],
-                'venue': row['journal']
-            }
+            if 'journal' in dataset.columns:
+                venue_dict[row['journal']] = {
+                    'year': row['year'],
+                    'title': row['title'],
+                    'pages': row['pages'],
+                    'publisher': row['publisher'],
+                    'venue': row['journal']
+                }
+            if 'journal' not in dataset.columns:  # book.csv non ha journal :0
+                venue_dict[row['school']] = {
+                    'year': row['year'],
+                    'title': row['title'],
+                    'pages': row['pages'],
+                    'publisher': row['publisher'],
+                    'venue': row['school']
+                }
             authors = authors.split('|')
             publication_id = row['id']
         else:
@@ -45,22 +54,36 @@ def build_bipartite_graph(dataset, mDate=2016):
             author_node = "Author:" + author
             publication_node = "Publication:" + str(publication_id)
 
-            G.add_edge(author_node, publication_node) # fa tutto qui
+            G.add_edge(author_node, publication_node)  # fa tutto qui
 
             G.nodes[author_node]['label'] = {  # per ogni autore adesso hanno una label con nome e tipo
                 'type': 'author',
                 'name': author
             }
 
-            G.nodes[publication_node]['label'] = {  # idem qui con tutte le info
-                'type': 'publication',
-                'id': publication_id,
-                'year': row['year'],
-                'title': row['title'], # se ci mettiamo un dizionario tipo colums si può associare vari nomi alla stessa struttura
-                'pages': row['pages'],
-                'publisher': row['publisher'],
-                'venue': row['journal']
-            }
+            if 'journal' in dataset.columns:
+                G.nodes[publication_node]['label'] = {  # idem qui con tutte le info
+                    'type': 'publication',
+                    'id': publication_id,
+                    'year': row['year'],
+                    'title': row['title'],
+                    # se ci mettiamo un dizionario tipo colums si può associare vari nomi alla stessa struttura
+                    'pages': row['pages'],
+                    'publisher': row['publisher'],
+                    'venue': row['journal']
+                }
+
+            if 'journal' not in dataset.columns:  # book.csv non ha journal :0
+                G.nodes[publication_node]['label'] = {  # idem qui con tutte le info
+                    'type': 'publication',
+                    'id': publication_id,
+                    'year': row['year'],
+                    'title': row['title'],
+                    # se ci mettiamo un dizionario tipo colums si può associare vari nomi alla stessa struttura
+                    'pages': row['pages'],
+                    'publisher': row['publisher'],
+                    'venue': row['school']
+                }
 
             creating_dictionary(author_dict, reverse_author_dict, author_node)
             creating_dictionary(

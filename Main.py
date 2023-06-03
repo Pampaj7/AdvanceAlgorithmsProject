@@ -8,13 +8,13 @@ import LowerBound as lw
 import Diameter as d
 import AuthorMaxCollab as amc
 
-dataset_file = '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_article.csv'
+dataset_file = '/home/leonardo/Scrivania/datasets/out-dblp_book.csv'
 
 # exception handler for reading file
-#dataset = ecc.read_csv_ignore_errors(dataset_file)
+dataset = ecc.read_csv_ignore_errors(dataset_file)
 
 # Build bipartite graph
-bipartite_graph = bbg.build_bipartite_graph(ecc.read_csv_ignore_errors(dataset_file))
+bipartite_graph = bbg.build_bipartite_graph(dataset)
 
 """
 print(" Author Nodes:")
@@ -69,7 +69,7 @@ print(" The oldest venue is:", oldest_venue)
 
 # cazz = d.calcola_diametro_grafo(bipartite_graph)
 # print(cazz)
-print("Il diametro del grafo è: ", d.calcola_diametro_grafo(bipartite_graph))
+# print("Il diametro del grafo è: ", d.calcola_diametro_grafo(bipartite_graph))
 
 # *---------------------------------------* 2 --> end question
 
@@ -81,3 +81,25 @@ print("L'autore con massimo numero di collaborazioni è: ",
       author, "con numero di collaborazioni: ", numCollab)
 
 # *---------------------------------------* 3 --> End Author max collab
+
+
+# UNION GRAPH
+
+
+dataset_files = ['/home/leonardo/Scrivania/datasets/out-dblp_article.csv',
+                 '/home/leonardo/Scrivania/datasets/out-dblp_book.csv',
+                 '/home/leonardo/Scrivania/datasets/out-dblp_incollection.csv',
+                 '/home/leonardo/Scrivania/datasets/out-dblp_inproceedings.csv',
+                 '/home/leonardo/Scrivania/datasets/out-dblp_mastersthesis.csv',
+                 '/home/leonardo/Scrivania/datasets/out-dblp_phdthesis.csv',
+                 '/home/leonardo/Scrivania/datasets/out-dblp_proceedings.csv']
+graph_list = []
+
+for dataset in dataset_files:
+    dataset = ecc.read_csv_ignore_errors(dataset)
+    bipGraph = bbg.build_bipartite_graph(dataset)
+    graph_list.append(bipartite_graph)
+
+union_graph = nx.compose_all(graph_list)
+total_nodes = union_graph.number_of_nodes()
+print(f"Total nodes in the union graph: {total_nodes}")
