@@ -92,6 +92,8 @@ def build_bipartite_graph(dataset, dataset_file, mDate=2020):
         creating_dictionary(
             publication_dict, reverse_publication_dict, publication_node)
 
+
+
     # Set dictionaries as graph attributes La riga G.graph['author_dict'] = author_dict imposta il dizionario
     # author_dict come attributo 'author_dict' del grafo G. Questo attributo può essere utilizzato per accedere al
     # dizionario dei nodi degli autori nel grafo. Questo è utile perché consente di memorizzare i dizionari come

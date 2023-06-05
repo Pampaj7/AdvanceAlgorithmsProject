@@ -8,7 +8,7 @@ import LowerBound as lw
 import Diameter as d
 import AuthorMaxCollab as amc
 
-dataset_file = '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_book.csv'
+dataset_file = '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_article.csv'
 
 # exception handler for reading file
 dataset = ecc.read_csv_ignore_errors(dataset_file)

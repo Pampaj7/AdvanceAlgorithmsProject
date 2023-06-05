@@ -143,7 +143,7 @@ def calcola_altezza_Albero(grafo, nodo_radice):
 
 
 # Esempio di utilizzo
-grafo = nx.fast_gnp_random_graph(20, 0.9)
+"""grafo = nx.fast_gnp_random_graph(20, 0.9)
 
 altmax, nodmax = calcola_altezza_Albero(
     grafo, random.choice(list(grafo.nodes)))
@@ -153,5 +153,5 @@ print('lower bound: ', lower_Bound(grafo))
 
 print('upper bound: ', nx.eccentricity(grafo))  # TODO finire
 
-print(nx.eccentricity(grafo).values())
+print(nx.eccentricity(grafo).values())"""
 
