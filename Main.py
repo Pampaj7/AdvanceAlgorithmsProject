@@ -14,7 +14,7 @@ dataset_file = '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_book.csv'
 dataset = ecc.read_csv_ignore_errors(dataset_file)
 
 # Build bipartite graph
-bipartite_graph = bbg.build_bipartite_graph(dataset)
+bipartite_graph = bbg.build_bipartite_graph(dataset, dataset_file)
 
 """
 print(" Author Nodes:")

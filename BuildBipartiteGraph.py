@@ -2,7 +2,30 @@ import networkx as nx
 import ProgressionBar as pb
 
 
-def build_bipartite_graph(dataset, mDate=2020):
+def adapter_for_bipartiteGraphs(dataset_file):
+    if dataset_file.find("out-dblp_article.csv") != -1:
+        venue = 'journal'
+    elif dataset_file.find("out-dblp_book.csv") != -1:
+        venue = 'booktitle'
+    elif dataset_file.find("out-dblp_incollection.csv") != -1:
+        venue = 'booktitle'
+    elif dataset_file.find("out-dblp_inproceedings.csv") != -1:
+        venue = 'booktitle'
+    elif dataset_file.find("out-dblp_mastersthesis.csv") != -1:
+        venue = 'booktitle'
+    elif dataset_file.find("out-dblp_phdthesis.csv") != -1:
+        venue = 'booktitle'
+    elif dataset_file.find("out-dblp_proceedings.csv") != -1:
+        venue = 'title'
+    elif dataset_file.find("DataSetTypeSmaller.csv") != -1:
+        venue = 'journal'
+    else:
+        return None
+
+    return venue
+
+
+def build_bipartite_graph(dataset, dataset_file, mDate=2020):
     G = nx.Graph()
 
     author_dict = {}
