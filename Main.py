@@ -8,7 +8,7 @@ import LowerBound as lw
 import Diameter as d
 import AuthorMaxCollab as amc
 
-dataset_file = '/home/leonardo/Scrivania/datasets/out-dblp_book.csv'
+dataset_file = '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_book.csv'
 
 # exception handler for reading file
 dataset = ecc.read_csv_ignore_errors(dataset_file)
@@ -84,7 +84,7 @@ print("L'autore con massimo numero di collaborazioni è: ",
 
 
 # UNION GRAPH
-
+"""
 
 dataset_files = ['/home/leonardo/Scrivania/datasets/out-dblp_article.csv',
                  '/home/leonardo/Scrivania/datasets/out-dblp_book.csv',
@@ -98,8 +98,9 @@ graph_list = []
 for dataset in dataset_files:
     dataset = ecc.read_csv_ignore_errors(dataset)
     bipGraph = bbg.build_bipartite_graph(dataset)
-    graph_list.append(bipartite_graph)
+    graph_list.append(bipGraph)
 
 union_graph = nx.compose_all(graph_list)
 total_nodes = union_graph.number_of_nodes()
 print(f"Total nodes in the union graph: {total_nodes}")
+"""

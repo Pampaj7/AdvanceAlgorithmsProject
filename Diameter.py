@@ -45,11 +45,3 @@ def calcola_diametro_grafo(grafo):
     return diametro
 
 
-# Esempio di utilizzo
-grafo = nx.fast_gnp_random_graph(100, 1)
-
-diametro_grafo = calcola_diametro_grafo(grafo)
-print("Il diametro del grafo è tramite il nostro codice è:", diametro_grafo)
-
-diametro_grafo = nx.diameter(grafo)
-print("Il diametro del grafo è:", diametro_grafo)

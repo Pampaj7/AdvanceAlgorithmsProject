@@ -13,3 +13,7 @@ union_graph = nx.compose(graph1, graph2)
 # Stampa i nodi e gli archi del grafo di unione
 print("Nodi:", union_graph.nodes)
 print("Archi:", union_graph.edges)
+
+dataset_file = '/home/leonardo/Scrivania/datasets/out-dblp_book.csv'
+
+print(dataset_file)

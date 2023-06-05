@@ -28,23 +28,17 @@ def build_bipartite_graph(dataset, mDate=2020):
         # date is a list with at place 0 year
         year_of_pub = paper_date.split('-')[0].strip()
         # strip elimina gli spazi dalla stringa
+
+        venue = adapter_for_bipartiteGraphs(dataset_file)
+
         if isinstance(authors, str) and int(year_of_pub) <= mDate:
-            if 'journal' in dataset.columns:
-                venue_dict[row['journal']] = {
-                    'year': row['year'],
-                    'title': row['title'],
-                    'pages': row['pages'],
-                    'publisher': row['publisher'],
-                    'venue': row['journal']
-                }
-            if 'journal' not in dataset.columns:  # book.csv non ha journal :0
-                venue_dict[row['school']] = {
-                    'year': row['year'],
-                    'title': row['title'],
-                    'pages': row['pages'],
-                    'publisher': row['publisher'],
-                    'venue': row['school']
-                }
+            venue_dict[row[venue]] = {
+                'year': row['year'],
+                #'title': row['title'],
+                #'pages': row['pages'],
+                #'publisher': row['publisher'],
+                'venue': row[venue]
+            }
             authors = authors.split('|')
             publication_id = row['id']
         else:
@@ -61,33 +55,19 @@ def build_bipartite_graph(dataset, mDate=2020):
                 'name': author
             }
 
-            if 'journal' in dataset.columns:
-                G.nodes[publication_node]['label'] = {  # idem qui con tutte le info
-                    'type': 'publication',
-                    'id': publication_id,
-                    'year': row['year'],
-                    'title': row['title'],
-                    # se ci mettiamo un dizionario tipo colums si può associare vari nomi alla stessa struttura
-                    'pages': row['pages'],
-                    'publisher': row['publisher'],
-                    'venue': row['journal']
-                }
+            G.nodes[publication_node]['label'] = {  # idem qui con tutte le info
+                'type': 'publication',
+                'id': publication_id,
+                'year': row['year'],
+                #'title': row['title'],
+                #'pages': row['pages'],
+                #'publisher': row['publisher'],
+                'venue': row[venue]
+            }
 
-            if 'journal' not in dataset.columns:  # book.csv non ha journal :0
-                G.nodes[publication_node]['label'] = {  # idem qui con tutte le info
-                    'type': 'publication',
-                    'id': publication_id,
-                    'year': row['year'],
-                    'title': row['title'],
-                    # se ci mettiamo un dizionario tipo colums si può associare vari nomi alla stessa struttura
-                    'pages': row['pages'],
-                    'publisher': row['publisher'],
-                    'venue': row['school']
-                }
-
-            creating_dictionary(author_dict, reverse_author_dict, author_node)
-            creating_dictionary(
-                publication_dict, reverse_publication_dict, publication_node)
+        creating_dictionary(author_dict, reverse_author_dict, author_node)
+        creating_dictionary(
+            publication_dict, reverse_publication_dict, publication_node)
 
     # Set dictionaries as graph attributes La riga G.graph['author_dict'] = author_dict imposta il dizionario
     # author_dict come attributo 'author_dict' del grafo G. Questo attributo può essere utilizzato per accedere al
