@@ -20,7 +20,8 @@ def adapter_for_bipartiteGraphs(dataset_file):
     elif dataset_file.find("DataSetTypeSmaller.csv") != -1:
         venue = 'journal'
     else:
-        return None
+        return 'journal'
+        # return None
 
     return venue
 
