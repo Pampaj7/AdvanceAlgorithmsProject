@@ -43,7 +43,6 @@ def build_bipartite_graph(dataset, dataset_file, mDate=2020):
 
     # Create nodes for authors and publications
     for index, row in dataset.iterrows():  # common iteration
-
         pb.print_progress_bar(index, len(dataset), prefix='Progress:', suffix='Complete', length=50)  # progress bar
 
         authors = row['author']
@@ -57,9 +56,9 @@ def build_bipartite_graph(dataset, dataset_file, mDate=2020):
         if isinstance(authors, str) and int(year_of_pub) <= mDate:
             venue_dict[row[venue]] = {
                 'year': row['year'],
-                #'title': row['title'],
-                #'pages': row['pages'],
-                #'publisher': row['publisher'],
+                # 'title': row['title'],
+                # 'pages': row['pages'],
+                # 'publisher': row['publisher'],
                 'venue': row[venue]
             }
             authors = authors.split('|')
@@ -82,17 +81,15 @@ def build_bipartite_graph(dataset, dataset_file, mDate=2020):
                 'type': 'publication',
                 'id': publication_id,
                 'year': row['year'],
-                #'title': row['title'],
-                #'pages': row['pages'],
-                #'publisher': row['publisher'],
+                # 'title': row['title'],
+                # 'pages': row['pages'],
+                # 'publisher': row['publisher'],
                 'venue': row[venue]
             }
 
         creating_dictionary(author_dict, reverse_author_dict, author_node)
         creating_dictionary(
             publication_dict, reverse_publication_dict, publication_node)
-
-
 
     # Set dictionaries as graph attributes La riga G.graph['author_dict'] = author_dict imposta il dizionario
     # author_dict come attributo 'author_dict' del grafo G. Questo attributo può essere utilizzato per accedere al
@@ -110,5 +107,4 @@ def build_bipartite_graph(dataset, dataset_file, mDate=2020):
     G.graph['publication_dict'] = publication_dict
     G.graph['reverse_author_dict'] = reverse_author_dict
     G.graph['reverse_publication_dict'] = reverse_publication_dict
-
     return G

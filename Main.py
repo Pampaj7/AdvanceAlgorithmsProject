@@ -7,8 +7,10 @@ import Find_oldest_venue as fov
 import LowerBound as lw
 import Diameter as d
 import AuthorMaxCollab as amc
+import scipy as sp
+import authormax as am
 
-dataset_file = '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_article.csv'
+dataset_file = r'C:\Users\leona\PycharmProjects\AdvanceAlgorithmsProject\Dataset\DATA100K.csv'
 
 # exception handler for reading file
 dataset = ecc.read_csv_ignore_errors(dataset_file)
@@ -80,6 +82,9 @@ author, numCollab = amc.find_author_with_most_collaborations(bipartite_graph)
 print("L'autore con massimo numero di collaborazioni è: ",
       author, "con numero di collaborazioni: ", numCollab)
 
+print(amc.count_publications_of_author(bipartite_graph, "Author:H. Vincent Poor"))
+
+am.max_collab_from_publish(bipartite_graph)
 # *---------------------------------------* 3 --> End Author max collab
 
 
@@ -103,4 +108,20 @@ for dataset in dataset_files:
 union_graph = nx.compose_all(graph_list)
 total_nodes = union_graph.number_of_nodes()
 print(f"Total nodes in the union graph: {total_nodes}")
+"""
+"""
+# Disegna il grafo bipartito
+pos = nx.random_layout(bipartite_graph)
+plt.figure(figsize=(10, 6))
+nx.draw_networkx_nodes(bipartite_graph, pos,
+                       nodelist=[node for node in bipartite_graph.nodes() if node.startswith("Author:")],
+                       node_color='red', label='Author', node_size=50)
+nx.draw_networkx_nodes(bipartite_graph, pos,
+                       nodelist=[node for node in bipartite_graph.nodes() if node.startswith("Publication:")],
+                       node_color='blue', label='Publication', node_size=50)
+nx.draw_networkx_edges(bipartite_graph, pos)
+plt.axis('off')
+plt.legend()
+plt.title("Bipartite Graph")
+plt.show()
 """
