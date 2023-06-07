@@ -1,4 +1,8 @@
 from matplotlib import pyplot as plt
+import networkx as nx
+import random
+import ProgressionBar as pb
+from collections import deque
 
 """
 # Create graph
@@ -19,9 +23,6 @@ nx.draw(G, pos=pos, with_labels=True)
 nx.draw_networkx_edges(G, edge_color='r', edgelist=l_s_path_edges, pos=pos)
 plt.show()
 """
-
-import networkx as nx
-from collections import deque
 
 
 def calcola_diametro_grafo(graph):
