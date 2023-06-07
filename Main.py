@@ -8,9 +8,10 @@ import LowerBound as lw
 import Diameter as d
 import AuthorMaxCollab as amc
 import scipy as sp
-import authormax as am
 
-dataset_file = r'C:\Users\leona\PycharmProjects\AdvanceAlgorithmsProject\Dataset\DATA100K.csv'
+# TODO sistemare la ricerca per data, adesso è fatto il caricamento solo per data, da fixare
+
+dataset_file = r'/Users/pampaj/PycharmProjects/AdvanceAlgorithmsProject/Dataset/DATA100K.csv'
 
 # exception handler for reading file
 dataset = ecc.read_csv_ignore_errors(dataset_file)
@@ -69,9 +70,9 @@ print(" The oldest venue is:", oldest_venue)
 # altezza, last_node = lw.lower_Bound(bipartite_graph)
 # print(altezza, last_node)
 
-# cazz = d.calcola_diametro_grafo(bipartite_graph)
-# print(cazz)
-# print("Il diametro del grafo è: ", d.calcola_diametro_grafo(bipartite_graph))
+#cazz = nx.diameter(bipartite_graph)
+cazz1 = d.calcola_diametro_grafo(bipartite_graph)
+print(cazz1)
 
 # *---------------------------------------* 2 --> end question
 
@@ -82,9 +83,9 @@ author, numCollab = amc.find_author_with_most_collaborations(bipartite_graph)
 print("L'autore con massimo numero di collaborazioni è: ",
       author, "con numero di collaborazioni: ", numCollab)
 
-print(amc.count_publications_of_author(bipartite_graph, "Author:H. Vincent Poor"))
+print("vincent ha collaborato in : ",
+      amc.count_publications_of_author(bipartite_graph, "Author:H. Vincent Poor"))
 
-am.max_collab_from_publish(bipartite_graph)
 # *---------------------------------------* 3 --> End Author max collab
 
 
