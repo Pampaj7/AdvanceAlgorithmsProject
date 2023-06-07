@@ -210,9 +210,84 @@ def calcola_altezza_Albero(grafo, nodo_radice):
 
     return altezza_massima  # , nodo_altezza_massim
 
+import networkx as nx
+from collections import deque
 
-def bi(graph, fringe):
-    return True
+# Crea un grafo di esempio
+G = nx.Graph()
+G.add_edges_from([(1, 2), (1, 3), (2, 4), (2, 5), (3, 6), (3, 7)])
+
+# Funzione per trovare il nodo più distante da un nodo di partenza utilizzando BFS
+def farthest_node_bfs(graph, start_node = nx.utils.random.choice(list(G.nodes()))):
+    # Inizializza la coda della BFS
+    queue = deque([(start_node, 0)])  # (nodo, distanza)
+
+    # Inizializza un insieme per tenere traccia dei nodi visitati
+    visited = set([start_node])
+
+    # Variabile per tenere traccia del nodo più distante
+    farthest_node = start_node
+    max_distance = 0
+
+    while queue:
+        current_node, distance = queue.popleft()
+
+        if distance > max_distance:
+            # Aggiorna il nodo più distante
+            farthest_node = current_node
+            max_distance = distance
+
+        # Esplora i nodi adiacenti
+        for neighbor in graph.neighbors(current_node):
+            if neighbor not in visited:
+                queue.append((neighbor, distance + 1))
+                visited.add(neighbor)
+
+    return farthest_node, max_distance
+
+# Nodo di partenza
+start_node = 1
+
+def my_eccentricity(graph, node):
+    node, distance = farthest_node_bfs(graph=graph, start_node=node)
+    return distance
+
+import networkx as nx
+
+# Crea un grafo di esempio
+G = nx.Graph()
+G.add_edges_from([(1, 2), (1, 3), (2, 4), (2, 5), (3, 6), (3, 7), (4, 8)])
+
+# Funzione per trovare l'insieme di nodi distanti "i" da un nodo di partenza "a"
+def Fiu(graph, distance, start_node = nx.utils.random.choice(list(G.nodes()))):
+    visited = set()  # Insieme per tenere traccia dei nodi visitati
+    current_level = {start_node}  # Insieme di nodi al livello corrente
+
+    for _ in range(distance):
+        next_level = set()  # Insieme di nodi al prossimo livello
+
+        # Espandi il livello corrente
+        for node in current_level:
+            visited.add(node)  # Aggiungi il nodo visitato
+            neighbors = set(graph.neighbors(node))
+            next_level.update(neighbors - visited)
+
+        current_level = next_level
+
+    return current_level
+
+# Nodo di partenza
+start_node = 1
+
+# Distanza "i"
+distance = 2
+
+# Trova l'insieme di nodi distanti "i" dal nodo di partenza utilizzando BFS
+nodes = nodes_at_distance(G, start_node, distance)
+
+# Stampa l'insieme di nodi
+print("Nodi a distanza", distance, "dal nodo", start_node, ":", nodes)
+
 
 
 def iFUB(graph, node):
