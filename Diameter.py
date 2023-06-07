@@ -38,6 +38,41 @@ def calcola_diametro_grafo(graph):
     return diameterList
 
 
+def approximate_diameter(graph, sample_size=1000, max_hops=100):
+    nodes = list(graph.nodes())
+    diameter = 0
+
+    # Select random nodes as starting points for sampling
+    sample_nodes = random.sample(nodes, min(sample_size, len(nodes)))
+
+    for node in sample_nodes:
+        visited = set([node])
+        queue = [(node, 0)]
+
+        while queue:
+            current_node, hops = queue.pop(0)
+
+            if hops > max_hops:
+                break
+
+            neighbors = list(graph.neighbors(current_node))
+
+            if not neighbors:
+                continue
+
+            # Select a random neighbor and add it to the visited set
+            random_neighbor = random.choice(neighbors)
+            visited.add(random_neighbor)
+
+            # Add the random neighbor to the queue for further exploration
+            queue.append((random_neighbor, hops + 1))
+
+        # Update the diameter if necessary
+        diameter = max(diameter, hops)
+
+    return diameter
+
+
 """
 # lower bound
 
@@ -113,7 +148,7 @@ print('Ultimo nodo è: '+x)
 """
 
 
-def max_Ecc(G):
+def max_Ecc(G):  # troppo costoso
     s_dict = nx.eccentricity(G)
 
     max_value = max(s_dict.items(), key=lambda x: x[1])
@@ -128,7 +163,7 @@ def max_Ecc(G):
 def lower_Bound(G):
     source = random.choice(list(G.nodes))
 
-    max_value = min(nx.eccentricity(G), key=nx.eccentricity(G).get)
+    max_value = min(nx.eccentricity(G), key=nx.eccentricity(G).get)  # qui si bugga
     print('ecc ', max_value)
     treeRX = nx.bfs_tree(G, source=source)
     distRX, x = calcola_altezza_Albero(treeRX, nodo_radice=source)
@@ -175,8 +210,10 @@ def calcola_altezza_Albero(grafo, nodo_radice):
 
     return altezza_massima  # , nodo_altezza_massim
 
+
 def bi(graph, fringe):
     return True
+
 
 def iFUB(graph, node):
     fringe = nx.periphery(graph)  # cerco la frangia del grafo

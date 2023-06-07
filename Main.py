@@ -4,10 +4,11 @@ import BuildBipartiteGraph as bbg
 import ExeptionCatcherCsv as ecc
 import networkx as nx
 import Find_oldest_venue as fov
-import LowerBound as lw
 import Diameter as d
 import AuthorMaxCollab as amc
 import scipy as sp
+import FindSubGraphMax as fsgm
+import Eccentricity as e
 
 # TODO sistemare la ricerca per data, adesso è fatto il caricamento solo per data, da fixare
 
@@ -67,12 +68,14 @@ print(" The oldest venue is:", oldest_venue)
 
 # *---------------------------------------* 2 --> Diameter question
 
-# altezza, last_node = lw.lower_Bound(bipartite_graph)
-# print(altezza, last_node)
-
-#cazz = nx.diameter(bipartite_graph)
-cazz1 = d.calcola_diametro_grafo(bipartite_graph)
-print(cazz1)
+maxSubGraph = fsgm.find_largest_connected_component(bipartite_graph)
+print("trovato sottomax graph")
+# ecc = nx.eccentricity(maxSubGraph)  # troppo costoso non va
+ecc = e.eccentricity(maxSubGraph)  # troppo costoso
+print("il sottografo massimo ha eccentricità massima: ", ecc)
+# TODO da trovare implementazione per bene
+# TODO il problema è nel calcolo dell'eccentricità
+# TODO e dentro il codice dobbiamo troavre come implementare lo shortest path
 
 # *---------------------------------------* 2 --> end question
 
@@ -109,20 +112,4 @@ for dataset in dataset_files:
 union_graph = nx.compose_all(graph_list)
 total_nodes = union_graph.number_of_nodes()
 print(f"Total nodes in the union graph: {total_nodes}")
-"""
-"""
-# Disegna il grafo bipartito
-pos = nx.random_layout(bipartite_graph)
-plt.figure(figsize=(10, 6))
-nx.draw_networkx_nodes(bipartite_graph, pos,
-                       nodelist=[node for node in bipartite_graph.nodes() if node.startswith("Author:")],
-                       node_color='red', label='Author', node_size=50)
-nx.draw_networkx_nodes(bipartite_graph, pos,
-                       nodelist=[node for node in bipartite_graph.nodes() if node.startswith("Publication:")],
-                       node_color='blue', label='Publication', node_size=50)
-nx.draw_networkx_edges(bipartite_graph, pos)
-plt.axis('off')
-plt.legend()
-plt.title("Bipartite Graph")
-plt.show()
 """
