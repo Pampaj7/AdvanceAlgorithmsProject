@@ -1,7 +1,7 @@
 from matplotlib import pyplot as plt
 
 import BuildBipartiteGraph as bbg
-import ExeptionCatcherCsv as ecc
+import ExeptionCatcherCsv as nodeWithMaxEcc
 import networkx as nx
 import Find_oldest_venue as fov
 import Diameter as d
@@ -15,7 +15,7 @@ import Eccentricity as e
 dataset_file = r'/Users/pampaj/PycharmProjects/AdvanceAlgorithmsProject/Dataset/DATA100K.csv'
 
 # exception handler for reading file
-dataset = ecc.read_csv_ignore_errors(dataset_file)
+dataset = nodeWithMaxEcc.read_csv_ignore_errors(dataset_file)
 
 # Build bipartite graph
 bipartite_graph = bbg.build_bipartite_graph(dataset, dataset_file)
@@ -70,9 +70,12 @@ print(" The oldest venue is:", oldest_venue)
 
 maxSubGraph = fsgm.find_largest_connected_component(bipartite_graph)
 print("trovato sottomax graph")
-# ecc = nx.eccentricity(maxSubGraph)  # troppo costoso non va
-ecc = e.eccentricity(maxSubGraph)  # troppo costoso
-print("il sottografo massimo ha eccentricità massima: ", ecc)
+nodeDegree = d.findMaxDegreeNodeGraph(maxSubGraph)
+nodeWithMaxEcc, maxfist = d.farthest_node_bfs(maxSubGraph, nodeDegree)
+print("il sottografo massimo ha eccentricità massima: ", maxfist, "con nodo: ", nodeWithMaxEcc)
+# print('eccentricità networkx: ', nx.eccentricity(maxSubGraph))
+print("lista nodi a profondità: ", d.bfs_maxdepth(maxSubGraph, maxfist, nodeWithMaxEcc))
+print("la massima eccentricità della fringe è: ", d.Biu(maxSubGraph, maxfist, nodeWithMaxEcc))
 # TODO da trovare implementazione per bene
 # TODO il problema è nel calcolo dell'eccentricità
 # TODO e dentro il codice dobbiamo troavre come implementare lo shortest path
@@ -86,8 +89,8 @@ author, numCollab = amc.find_author_with_most_collaborations(bipartite_graph)
 print("L'autore con massimo numero di collaborazioni è: ",
       author, "con numero di collaborazioni: ", numCollab)
 
-print("vincent ha collaborato in : ",
-      amc.count_publications_of_author(bipartite_graph, "Author:H. Vincent Poor"))
+# print("vincent ha collaborato in : ",
+#     amc.count_publications_of_author(bipartite_graph, "Author:H. Vincent Poor"))
 
 # *---------------------------------------* 3 --> End Author max collab
 

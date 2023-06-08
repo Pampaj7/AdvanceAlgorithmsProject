@@ -3,6 +3,7 @@ def find_oldest_venue(graph):
     oldest_venue = None
 
     for node in graph.nodes:  # non segue nessun algoritmo, usa uno stack dove legge i nodi inseriti progressivamente
+
         if 'label' in graph.nodes[node] and graph.nodes[node]['label']['type'] == 'publication':
             year = str(graph.nodes[node]['label']['year'])
             venue = str(graph.nodes[node]['label']['venue'])
