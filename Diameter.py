@@ -189,7 +189,6 @@ def bfs_maxdepth(graph, maxdepth, start):
 
 def Biu(graph, level, node):
     max_ecc = 0
-
     nodes = bfs_maxdepth(graph, level, node)
     progress_bar = tqdm(nodes, desc="Processing nodes", leave=False)
 
@@ -198,7 +197,7 @@ def Biu(graph, level, node):
         if ecc > max_ecc:
             max_ecc = ecc
         progress_bar.set_postfix({"Max Eccentricity": max_ecc})
-
     return max_ecc
 
 #TODO implementare 2-swep
+

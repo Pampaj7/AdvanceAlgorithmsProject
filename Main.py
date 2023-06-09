@@ -46,6 +46,7 @@ print("la massima eccentricità della fringe è: ", d.Biu(maxSubGraph, maxfist, 
 # TODO da trovare implementazione per bene
 # TODO il problema è nel calcolo dell'eccentricità
 # TODO e dentro il codice dobbiamo troavre come implementare lo shortest path
+'''
 
 # *---------------------------------------* 2 --> end question
 
@@ -63,15 +64,16 @@ print("L'autore con massimo numero di collaborazioni è: ",
 """
 
 # UNION GRAPH
-"""
 
-dataset_files = ['/home/leonardo/Scrivania/datasets/out-dblp_article.csv',
-                 '/home/leonardo/Scrivania/datasets/out-dblp_book.csv',
-                 '/home/leonardo/Scrivania/datasets/out-dblp_incollection.csv',
-                 '/home/leonardo/Scrivania/datasets/out-dblp_inproceedings.csv',
-                 '/home/leonardo/Scrivania/datasets/out-dblp_mastersthesis.csv',
-                 '/home/leonardo/Scrivania/datasets/out-dblp_phdthesis.csv',
-                 '/home/leonardo/Scrivania/datasets/out-dblp_proceedings.csv']
+
+dataset_files = ['/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_article.csv',
+                 '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_book.csv',
+                 '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_incollection.csv',
+                 '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_inproceedings.csv',
+                 '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_mastersthesis.csv',
+                 '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_phdthesis.csv',
+                 '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_proceedings.csv'
+                 ]
 graph_list = []
 
 for dataset in dataset_files:
@@ -80,6 +82,10 @@ for dataset in dataset_files:
     graph_list.append(bipGraph)
 
 union_graph = nx.compose_all(graph_list)
-total_nodes = union_graph.number_of_nodes()
-print(f"Total nodes in the union graph: {total_nodes}")
-"""
+
+oldest_venue = fov.find_oldest_venue(union_graph)
+print(" The oldest venue is:", oldest_venue)
+
+author, numCollab = amc.find_author_with_most_collaborations(union_graph)
+print("L'autore con massimo numero di collaborazioni è: ",
+      author, "con numero di collaborazioni: ", numCollab)
