@@ -9,9 +9,10 @@ import AuthorMaxCollab as amc
 import scipy as sp
 import FindSubGraphMax as fsgm
 import Eccentricity as e
+import ExeptionCatcherCsv as ecc
 
 # TODO sistemare la ricerca per data, adesso è fatto il caricamento solo per data, da fixare
-
+"""
 dataset_file = r'/Users/pampaj/PycharmProjects/AdvanceAlgorithmsProject/Dataset/DATA100K.csv'
 
 # exception handler for reading file
@@ -20,40 +21,6 @@ dataset = nodeWithMaxEcc.read_csv_ignore_errors(dataset_file)
 # Build bipartite graph
 bipartite_graph = bbg.build_bipartite_graph(dataset, dataset_file)
 
-"""
-print(" Author Nodes:")
-print('\n'.join(node for node in bipartite_graph.nodes()
-      if node.startswith("Author:")), end="\n-----\n")
-print("Publication Nodes:")
-print('\n'.join(node for node in bipartite_graph.nodes()
-      if node.startswith("Publication:")), end="\n-----\n")
-
-# Print edges
-
-print("Edges:")
-for author, publication in bipartite_graph.edges():
-    print(f"{author} --> {publication}")
-
-# Print author dictionary
-print("\nAuthor Dictionary:")
-for author_node, author_num in bipartite_graph.graph['author_dict'].items():
-    print(f"{author_node}: {author_num}")
-
-# Print publication dictionary
-print("\nPublication Dictionary:")
-for publication_node, publication_num in bipartite_graph.graph['publication_dict'].items():
-    print(f"{publication_node}: {publication_num}")
-
-# Print reverse author dictionary
-print("\nReverse Author Dictionary:")
-for author_num, author_node in bipartite_graph.graph['reverse_author_dict'].items():
-    print(f"{author_num}: {author_node}")
-
-# Print reverse publication dictionary
-print("\nReverse Publication Dictionary:")
-for publication_num, publication_node in bipartite_graph.graph['reverse_publication_dict'].items():
-    print(f"{publication_num}: {publication_node}")
-"""
 
 # *---------------------------------------* end bipGraph construction and print
 
@@ -67,7 +34,7 @@ print(" The oldest venue is:", oldest_venue)
 
 
 # *---------------------------------------* 2 --> Diameter question
-
+'''
 maxSubGraph = fsgm.find_largest_connected_component(bipartite_graph)
 print("trovato sottomax graph")
 nodeDegree = d.findMaxDegreeNodeGraph(maxSubGraph)
@@ -93,7 +60,7 @@ print("L'autore con massimo numero di collaborazioni è: ",
 #     amc.count_publications_of_author(bipartite_graph, "Author:H. Vincent Poor"))
 
 # *---------------------------------------* 3 --> End Author max collab
-
+"""
 
 # UNION GRAPH
 """
@@ -108,8 +75,8 @@ dataset_files = ['/home/leonardo/Scrivania/datasets/out-dblp_article.csv',
 graph_list = []
 
 for dataset in dataset_files:
-    dataset = ecc.read_csv_ignore_errors(dataset)
-    bipGraph = bbg.build_bipartite_graph(dataset)
+    datasetClean = ecc.read_csv_ignore_errors(dataset)
+    bipGraph = bbg.build_bipartite_graph(datasetClean, dataset)
     graph_list.append(bipGraph)
 
 union_graph = nx.compose_all(graph_list)

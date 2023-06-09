@@ -12,9 +12,9 @@ def adapter_for_bipartiteGraphs(dataset_file):
     elif dataset_file.find("out-dblp_inproceedings.csv") != -1:
         venue = 'booktitle'
     elif dataset_file.find("out-dblp_mastersthesis.csv") != -1:
-        venue = 'booktitle'
+        venue = 'school'
     elif dataset_file.find("out-dblp_phdthesis.csv") != -1:
-        venue = 'booktitle'
+        venue = 'school'
     elif dataset_file.find("out-dblp_proceedings.csv") != -1:
         venue = 'title'
     elif dataset_file.find("DataSetTypeSmaller.csv") != -1:

@@ -9,3 +9,10 @@ dove d(v, u) rappresenta la distanza tra il nodo v e il nodo u nel grafo, cioè 
 L'eccentricità di un nodo può essere utilizzata per misurare quanto il nodo sia "lontano" o "centrale" rispetto agli altri nodi nel grafo. Un nodo con eccentricità massima viene chiamato "nodo centrale" o "centro" del grafo, mentre un nodo con eccentricità minima viene chiamato "nodo periferico".
 
 L'eccentricità è una misura importante utilizzata in diversi contesti, come l'analisi delle reti sociali, il calcolo del diametro del grafo e l'identificazione dei nodi più influenti o centrali in un grafo.
+
+--> lower buond
+upper dei restanti nodi
+stopparsi quando da capire
+
+bfs da u
+trovare distanza i
