@@ -10,6 +10,7 @@ import scipy as sp
 import FindSubGraphMax as fsgm
 import Eccentricity as e
 import ExeptionCatcherCsv as ecc
+import AuthorGraph as ag
 
 # TODO sistemare la ricerca per data, adesso è fatto il caricamento solo per data, da fixare
 """
@@ -66,13 +67,13 @@ print("L'autore con massimo numero di collaborazioni è: ",
 # UNION GRAPH
 
 
-dataset_files = ['/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_article.csv',
-                 '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_book.csv',
-                 '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_incollection.csv',
-                 '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_inproceedings.csv',
-                 '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_mastersthesis.csv',
-                 '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_phdthesis.csv',
-                 '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_proceedings.csv'
+dataset_files = ['/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_article.csv',
+                 #'/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_book.csv',
+                 #'/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_incollection.csv',
+                 #'/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_inproceedings.csv',
+                 #'/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_mastersthesis.csv',
+                 #'/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_phdthesis.csv',
+                 #'/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_proceedings.csv'
                  ]
 graph_list = []
 
@@ -89,3 +90,6 @@ print(" The oldest venue is:", oldest_venue)
 author, numCollab = amc.find_author_with_most_collaborations(union_graph)
 print("L'autore con massimo numero di collaborazioni è: ",
       author, "con numero di collaborazioni: ", numCollab)
+
+print('author graph')
+author_graph = ag.build_author_graph(union_graph)
