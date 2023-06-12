@@ -68,7 +68,7 @@ print("L'autore con massimo numero di collaborazioni è: ",
 
 
 dataset_files = ['/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_article.csv',
-                 #'/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_book.csv',
+                 '/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_book.csv',
                  #'/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_incollection.csv',
                  #'/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_inproceedings.csv',
                  #'/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_mastersthesis.csv',
