@@ -26,7 +26,7 @@ def adapter_for_bipartiteGraphs(dataset_file):
     return venue
 
 
-def build_bipartite_graph(dataset, dataset_file, mDate=2020):
+def build_bipartite_graph(dataset, dataset_file, mDate=2023): # per 3 anni cambia parecchio
     G = nx.Graph()
 
     author_dict = {}
@@ -49,7 +49,7 @@ def build_bipartite_graph(dataset, dataset_file, mDate=2020):
         authors = row['author']
         paper_date = row['mdate']  # year-month-day
         # date is a list with at place 0 year
-        year_of_pub = paper_date.split('-')[0].strip()
+        year_of_pub = paper_date.split('-')[0].strip()  # anno di mdate
         # strip elimina gli spazi dalla stringa
 
         venue = adapter_for_bipartiteGraphs(dataset_file)

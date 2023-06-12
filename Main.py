@@ -82,6 +82,7 @@ for dataset in dataset_files:
     bipGraph = bbg.build_bipartite_graph(datasetClean, dataset)
     graph_list.append(bipGraph)
 
+print('union graph')
 union_graph = nx.compose_all(graph_list)
 
 oldest_venue = fov.find_oldest_venue(union_graph)
