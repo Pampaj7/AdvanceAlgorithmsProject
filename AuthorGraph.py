@@ -16,7 +16,7 @@ def build_author_graph(graph):
             author_graph.add_node(node)  # il grafo ha tutti e solo i nodi autore
 
         for neighbour in graph.neighbors(node):
-            if 'label' in graph.nodes[node] and graph.nodes[node]['label']['type'] == 'publication':
+            if 'label' in graph.nodes[neighbour] and graph.nodes[neighbour]['label']['type'] == 'publication':
                 authors = graph.neighbors(neighbour)
 
                 for author in authors:
