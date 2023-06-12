@@ -1,4 +1,4 @@
-def find_oldest_venue(graph):
+def find_oldest_venue(graph, year_of_pub=2023):
     oldest_year = str('inf')  # Initialize with a high value
     oldest_venue = None
 

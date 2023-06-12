@@ -85,6 +85,7 @@ def build_bipartite_graph(dataset, dataset_file, mDate=2023): # per 3 anni cambi
                 # 'title': row['title'],
                 # 'pages': row['pages'],
                 # 'publisher': row['publisher'],
+                'year_of_pub': year_of_pub,
                 'venue': row[venue]
             }
 
