@@ -10,7 +10,7 @@ from random import choice
 
 def calcola_diametro_grafo(graph):
     # Ottieni le componenti connesse del grafo
-    connected_components = nx.connected_components(graph)
+    connected_components = nx.connected_components(graph)  # era qui che faceva le componeneti connesse
     diameterList = []
     for component in connected_components:
         # Crea il sottografo della componente corrente
@@ -95,6 +95,7 @@ print("L'altezza del grafo è:", altezza_albero)
 print('Ultimo nodo è: '+x)
 """
 
+
 def calcola_altezza_Albero(grafo, nodo_radice):
     # Dizionario per tenere traccia dei livelli dei nodi
     livelli = {nodo: -1 for nodo in grafo}
@@ -165,6 +166,7 @@ def farthest_node_bfs(graph, start_node=None):  # oro
 
     return farthest_node, max_distance
 
+
 # ritorna la fringe radicata in start a distanza maxdepth
 # viene usata bfs per abbattere il costo computazionale
 def bfs_maxdepth(graph, maxdepth, start):
@@ -199,5 +201,4 @@ def Biu(graph, level, node):
         progress_bar.set_postfix({"Max Eccentricity": max_ecc})
     return max_ecc
 
-#TODO implementare 2-swep
-
+# TODO implementare 2-swep

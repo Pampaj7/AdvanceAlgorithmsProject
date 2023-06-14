@@ -28,6 +28,6 @@ def build_author_graph(graph):
                     elif graph.nodes[node] is not graph.nodes[author]:  # se l'arco non esiste lo creo, con peso 1
                         author_graph.add_edge(node, author, weight=1)
     progress_bar.close()
-    print('collaborazione più forte: ', max_edge, ' con num collab: ', max_collab)
+    print('Strongest collaboration: ', max_edge, ' With collaborations: ', max_collab)
 
     return None

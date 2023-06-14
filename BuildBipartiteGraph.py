@@ -26,7 +26,7 @@ def adapter_for_bipartiteGraphs(dataset_file):
     return venue
 
 
-def build_bipartite_graph(dataset, dataset_file, mDate=2023): # per 3 anni cambia parecchio
+def build_bipartite_graph(dataset, dataset_file, mDate=2023):  # per 3 anni cambia parecchio
     G = nx.Graph()
 
     author_dict = {}
