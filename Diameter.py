@@ -1,12 +1,7 @@
-from matplotlib import pyplot as plt
 import networkx as nx
 import random
-import ProgressionBar as pb
 from collections import deque
 from tqdm import tqdm
-
-from random import choice
-
 
 def calcola_diametro_grafo(graph):
     # Ottieni le componenti connesse del grafo

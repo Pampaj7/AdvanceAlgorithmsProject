@@ -1,5 +1,5 @@
 import networkx as nx
-import ProgressionBar as pb
+import tqdm as tqdm
 
 
 def adapter_for_bipartiteGraphs(dataset_file):
@@ -43,8 +43,7 @@ def build_bipartite_graph(dataset, dataset_file, mDate=2023):  # per 3 anni camb
             reverse_dict[node_num] = node  # quite ez
 
     # Create nodes for authors and publications
-    for index, row in dataset.iterrows():  # common iteration
-        pb.print_progress_bar(index, len(dataset), prefix='Progress:', suffix='Complete', length=50)  # progress bar
+    for index, row in tqdm.tqdm(dataset.iterrows(), total=len(dataset), desc="Building bipartite graph"):
 
         authors = row['author']
         paper_date = row['mdate']  # year-month-day

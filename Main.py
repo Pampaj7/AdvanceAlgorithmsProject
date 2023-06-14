@@ -4,7 +4,7 @@ import AuthorMaxCollab as amc
 import ExeptionCatcherCsv as ecc
 import AuthorGraph as ag
 import Find_oldest_venue as fov
-import  FindSubGraphMax as fsgm
+import FindSubGraphMax as fsgm
 
 """
 dataset_file = r'/Users/pampaj/PycharmProjects/AdvanceAlgorithmsProject/Dataset/DATA100K.csv'
@@ -60,20 +60,20 @@ print("L'autore con massimo numero di collaborazioni è: ",
 # UNION GRAPH
 
 
-dataset_files = [  # '/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_article.csv',
+dataset_files = [  # '/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_article.csv', # grosso
     '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_book.csv',
     '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_incollection.csv',
-    # '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_inproceedings.csv',  # grosso
-    # '/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_mastersthesis.csv',
-    # '/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_phdthesis.csv',
-    # '/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_proceedings.csv'
+    #'/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_inproceedings.csv',  # grosso
+    '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_mastersthesis.csv',
+    '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_phdthesis.csv',
+    '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_proceedings.csv'
 ]
 graph_list = []
 
 for dataset in dataset_files:
     datasetClean = ecc.read_csv_ignore_errors(dataset)
     bipGraph = bbg.build_bipartite_graph(datasetClean, dataset)
-    print("\nThe oldest venue is: ", fov.find_oldest_venue(bipGraph))  # 1
+    print("The oldest venue is: ", fov.find_oldest_venue(bipGraph))  # 1
     # diam
     author, numCollab = amc.find_author_with_most_collaborations(bipGraph)  # 3
     print("Max collaboration author is: ",
@@ -91,5 +91,4 @@ author, numCollab = amc.find_author_with_most_collaborations(union_graph)
 print("Max collaboration author in union graph is: ",
       author, "With collaborations: ", numCollab)
 
-print('Creating author graph..')
 author_graph = ag.build_author_graph(union_graph)

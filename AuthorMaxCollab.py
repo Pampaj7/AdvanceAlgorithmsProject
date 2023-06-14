@@ -21,14 +21,3 @@ def find_author_with_most_collaborations(graph):
                 author_with_max_collaborations = graph.nodes[node]['label']['name']
 
     return author_with_max_collaborations, max_collaborations
-
-
-def count_publications_of_author(graph, author_node):
-    count = 0
-
-    for neighbor in graph.neighbors(author_node):
-        if 'label' in graph.nodes[neighbor] and graph.nodes[neighbor]['label']['type'] == 'publication':
-            count += 1
-
-    return count
-
