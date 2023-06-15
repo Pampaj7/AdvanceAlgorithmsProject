@@ -16,13 +16,13 @@ import Diameter as d
 # UNION GRAPH
 
 
-dataset_files = ['/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_article.csv',  # grosso
-                 '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_book.csv',
-                 '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_incollection.csv',
-                 # '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_inproceedings.csv',  # grosso
-                 '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_mastersthesis.csv',
-                 '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_phdthesis.csv',
-                 '/Users/pampaj/Desktop/DataSet/dblp-all-csv/out-dblp_proceedings.csv'
+dataset_files = [r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_article.csv",
+                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_book.csv",
+                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_incollection.csv",
+                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_inproceedings.csv",
+                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_mastersthesis.csv",
+                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_phdthesis.csv",
+                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_proceedings.csv"
                  ]
 graph_list = []
 
@@ -34,9 +34,10 @@ for dataset in dataset_files:
     author, numCollab = amc.find_author_with_most_collaborations(bipGraph)  # 3
     print("Max collaboration author is: ",
           author, "With collaborations: ", numCollab)
+    graph_list.append(bipGraph)
 
     # diam 2
-"""
+    """
     maxSubGraph = fsgm.find_largest_connected_component(bipGraph)  # ok
     print("trovato sottomax graph")
     nodeDegree = d.findMaxDegreeNodeGraph(maxSubGraph)  # nodo + connesso
@@ -45,10 +46,7 @@ for dataset in dataset_files:
     print("il sottografo massimo ha eccentricità massima: ", maxfist, "con nodo: ", nodeWithMaxEcc)
     print("lista nodi a profondità: ", d.bfs_maxdepth(maxSubGraph, maxfist, nodeWithMaxEcc))
     print("la massima eccentricità della fringe è: ", d.Biu(maxSubGraph, maxfist, nodeWithMaxEcc))
-"""
-
-graph_list.append(bipGraph)
-
+    """
 print('Creating union graph..')
 union_graph = nx.compose_all(graph_list)
 
