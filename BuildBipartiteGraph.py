@@ -28,20 +28,21 @@ def adapter_for_bipartiteGraphs(dataset_file):
 
 def build_bipartite_graph(dataset, dataset_file, mDate=2023):  # per 3 anni cambia parecchio
     G = nx.Graph()
-
+    """
     author_dict = {}
     publication_dict = {}
     reverse_author_dict = {}
     reverse_publication_dict = {}
     venue_dict = {}
+    """
 
     # function for creating the dictionary and his inverse
-    def creating_dictionary(node_dict, reverse_dict, node):
+    """def creating_dictionary(node_dict, reverse_dict, node):
         if node not in node_dict:
             node_num = len(node_dict) + 1
             node_dict[node] = node_num
             reverse_dict[node_num] = node  # quite ez
-
+    """
     # Create nodes for authors and publications
     for index, row in tqdm.tqdm(dataset.iterrows(), total=len(dataset), desc="Building bipartite graph"):
 
@@ -54,13 +55,14 @@ def build_bipartite_graph(dataset, dataset_file, mDate=2023):  # per 3 anni camb
         venue = adapter_for_bipartiteGraphs(dataset_file)
 
         if isinstance(authors, str) and int(year_of_pub) <= mDate:
+            """
             venue_dict[row[venue]] = {
                 'year': row['year'],
                 # 'title': row['title'],
                 # 'pages': row['pages'],
                 # 'publisher': row['publisher'],
                 'venue': row[venue]
-            }
+            } """
             authors = authors.split('|')
             publication_id = row['id']
         else:
@@ -87,10 +89,11 @@ def build_bipartite_graph(dataset, dataset_file, mDate=2023):  # per 3 anni camb
                 'year_of_pub': year_of_pub,
                 'venue': row[venue]
             }
-
+        """
         creating_dictionary(author_dict, reverse_author_dict, author_node)
         creating_dictionary(
             publication_dict, reverse_publication_dict, publication_node)
+        """
 
     # Set dictionaries as graph attributes La riga G.graph['author_dict'] = author_dict imposta il dizionario
     # author_dict come attributo 'author_dict' del grafo G. Questo attributo può essere utilizzato per accedere al
@@ -103,9 +106,10 @@ def build_bipartite_graph(dataset, dataset_file, mDate=2023):  # per 3 anni camb
     #           |
     #           |
     #           V
-
+    """
     G.graph['author_dict'] = author_dict
     G.graph['publication_dict'] = publication_dict
     G.graph['reverse_author_dict'] = reverse_author_dict
     G.graph['reverse_publication_dict'] = reverse_publication_dict
+    """
     return G
