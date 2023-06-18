@@ -91,7 +91,6 @@ print("L'altezza del grafo è:", altezza_albero)
 print('Ultimo nodo è: '+x)
 """
 
-
 # ritorna il nodo di max grco per ottimizzare calcolo esatto del diametro
 def findMaxDegreeNodeGraph(graph):
     max_deg = 0
@@ -101,39 +100,6 @@ def findMaxDegreeNodeGraph(graph):
             max_deg = graph.degree(node)
             max_deg_node = node
     return max_deg_node
-
-
-# Funzione per trovare il nodo più distante da un nodo di partenza utilizzando BFS
-def farthest_node_bfs(graph, start_node=None):  # oro
-    if start_node is None:  # il metodo trova l'eccentricità
-        start_node = random.choice(list(graph.nodes()))
-
-    # Inizializza la coda della BFS
-    queue = deque([(start_node, 0)])  # (nodo, distanza)
-
-    # Inizializza un insieme per tenere traccia dei nodi visitati
-    visited = set([start_node])
-
-    # Variabile per tenere traccia del nodo più distante
-    farthest_node = start_node
-    max_distance = 0
-
-    while queue:
-        current_node, distance = queue.popleft()
-
-        if distance > max_distance:
-            # Aggiorna il nodo più distante
-            farthest_node = current_node
-            max_distance = distance
-
-        # Esplora i nodi adiacenti
-        for neighbor in graph.neighbors(current_node):
-            if neighbor not in visited:
-                queue.append((neighbor, distance + 1))
-                visited.add(neighbor)
-
-    return farthest_node, max_distance
-
 
 def bfs_livelli(graph):  # ritrona la fringe, calcola da solo il nodo con massimo grado
     start_node = findMaxDegreeNodeGraph(graph)
@@ -187,12 +153,12 @@ def eccentricity(graph, root):
     return amplitude
 
 
-def biu(graph):
+def biu(graph):#implementa metodo Bi(u), ritrona il nodo di eccentricità max nella fringe
     my_node = None
     max_ecc = -1
-    ecc, fringe = bfs_livelli(graph)
+    ecc, fringe = bfs_livelli(graph)#la fringe si ottiene invocando il nodo con massimo grado
     for node in fringe:
-        e = eccentricity(graph, node)
+        e = eccentricity(graph, node)#eccentricity viene calcolata facendo una bfs
         if e > max_ecc:
             max_ecc = e
             my_node = node
