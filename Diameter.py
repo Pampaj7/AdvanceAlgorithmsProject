@@ -91,6 +91,7 @@ print("L'altezza del grafo è:", altezza_albero)
 print('Ultimo nodo è: '+x)
 """
 
+
 # ritorna il nodo di max grco per ottimizzare calcolo esatto del diametro
 def findMaxDegreeNodeGraph(graph):
     max_deg = 0
@@ -100,6 +101,7 @@ def findMaxDegreeNodeGraph(graph):
             max_deg = graph.degree(node)
             max_deg_node = node
     return max_deg_node
+
 
 def bfs_livelli(graph):  # ritrona la fringe, calcola da solo il nodo con massimo grado
     start_node = findMaxDegreeNodeGraph(graph)
@@ -153,14 +155,13 @@ def eccentricity(graph, root):
     return amplitude
 
 
-def biu(graph):#implementa metodo Bi(u), ritrona il nodo di eccentricità max nella fringe
+def biu(graph):  # implementa metodo Bi(u), ritrona il nodo di eccentricità max nella fringe
     my_node = None
     max_ecc = -1
-    ecc, fringe = bfs_livelli(graph)#la fringe si ottiene invocando il nodo con massimo grado
+    ecc, fringe = bfs_livelli(graph)  # la fringe si ottiene invocando il nodo con massimo grado
     for node in fringe:
-        e = eccentricity(graph, node)#eccentricity viene calcolata facendo una bfs
+        e = eccentricity(graph, node)  # eccentricity viene calcolata facendo una bfs
         if e > max_ecc:
             max_ecc = e
             my_node = node
-            print()
     return my_node, max_ecc
