@@ -1,95 +1,5 @@
-import networkx as nx
-import random
 from collections import deque
-from tqdm import tqdm
-
-
-def calcola_diametro_grafo(graph):
-    # Ottieni le componenti connesse del grafo
-    connected_components = nx.connected_components(graph)  # era qui che faceva le componeneti connesse
-    diameterList = []
-    for component in connected_components:
-        # Crea il sottografo della componente corrente
-        subgraph = graph.subgraph(component)  # merda fumante
-
-        diameter = nx.diameter(subgraph)
-        diameterList.append(diameter)
-    return diameterList
-
-
-"""
-# lower bound
-
-# idea: fare 2 bfs, la prima su un random node r, la seconda su x nodo + distante da r
-# ripetere bfs su x e cerco y, nodo più distante da x il lower bound è la distanza tra x e y
-# il metodo deve ritronare la distanza tra r e x, la seconda volta tra x e y
-
-# upper bound
-
-# eccentricità dei rimanenti nodi, se i nodi hanno eccentricità minore del lower bound <- usare ecc method di networkx?
-
-
-def degreeTree(G):
-    return [n for n, d in G.in_degree() if d == 0]
-
-
-def lower_bound(G):
-    source = random.choice(list(G.nodes))
-    treeRX = nx.bfs_tree(G, source=source)  # return a tree, not height
-    distRX = calcola_altezza_Albero(treeRX)
-    # come prendo nodo più distante?
-
-
-def calcola_altezza_albero(grafo):
-    # nodo_radice = degreeTree(grafo)
-    nodo_radice = random.choice(list(grafo.nodes))
-
-    # Dizionario per tenere traccia dei livelli dei nodi
-    livelli = {nodo: -1 for nodo in grafo}  # TODO debug
-    x = nodo_radice
-    # Inizializza il livello del nodo radice a 0
-    livelli[nodo_radice] = 0
-
-    # Coda per la visita in ampiezza
-    coda = deque()
-    coda.append(nodo_radice)
-
-    # Altezza massima del grafo
-    altezza = 0
-
-    while coda:  # gucci
-        last_node = coda[-1]
-        nodo = coda.popleft()  # cazzo è
-
-        # Trova i nodi adiacenti al nodo corrente
-        for adiacente in grafo[nodo]:
-            if livelli[adiacente] == -1:
-                # Se il nodo adiacente non è stato visitato, assegna il livello corrente + 1
-                livelli[adiacente] = livelli[nodo] + 1
-                coda.append(adiacente)
-                # x = coda[-1]
-                # Aggiorna l'altezza massima del grafo se necessario
-                altezza = max(altezza, livelli[adiacente])
-
-    return altezza, last_node
-
-
-# Esempio di utilizzo
-grafo = {
-    'A': ['B', 'C', 'D'],
-    'B': ['A', 'D', 'C'],
-    'C': ['A', 'E', 'B'],
-    'D': ['B', 'A', 'E'],
-    'E': ['C', 'F', 'D'],
-    'F': ['E']
-}
-
-nodo_radice = 'A'
-
-altezza_albero, x = calcola_altezza_albero(grafo)
-print("L'altezza del grafo è:", altezza_albero)
-print('Ultimo nodo è: '+x)
-"""
+import FindSubGraphMax as fsgm
 
 
 # ritorna il nodo di max grco per ottimizzare calcolo esatto del diametro
@@ -132,7 +42,7 @@ def bfs_livelli(graph):  # ritrona la fringe, calcola da solo il nodo con massim
                         # print('inserisco il nodo: ', neighbor)
                         last_level[neighbor] = 0
 
-    print('larghezza fringe: ', len(last_level.keys()))
+    print('numero nodi fringe: ', len(last_level.keys()))
     return livello_massimo, last_level.keys()
 
 
@@ -155,7 +65,8 @@ def eccentricity(graph, root):
     return amplitude
 
 
-def biu(graph):  # implementa metodo Bi(u), ritrona il nodo di eccentricità max nella fringe
+def biu(graph1):  # implementa metodo Bi(u), ritrona il nodo di eccentricità max nella fringe
+    graph = fsgm.find_largest_connected_component(graph1) # TODO move me to ifub
     my_node = None
     max_ecc = -1
     ecc, fringe = bfs_livelli(graph)  # la fringe si ottiene invocando il nodo con massimo grado
