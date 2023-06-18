@@ -18,13 +18,13 @@ import time
 # UNION GRAPH
 
 
-dataset_files = [r"/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_article.csv",
-                 r"/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_book.csv",
-                 r"/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_incollection.csv",
-                 r"/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_inproceedings.csv",
-                 r"/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_mastersthesis.csv",
-                 r"/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_phdthesis.csv",
-                 r"/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_proceedings.csv"
+dataset_files = [r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_article.csv",
+                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_book.csv",
+                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_incollection.csv",
+                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_inproceedings.csv",
+                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_mastersthesis.csv",
+                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_phdthesis.csv",
+                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_proceedings.csv"
                  ]
 graph_list = []
 

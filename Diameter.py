@@ -1,5 +1,6 @@
 from collections import deque
 import FindSubGraphMax as fsgm
+import tqdm
 
 
 # ritorna il nodo di max grco per ottimizzare calcolo esatto del diametro
@@ -66,13 +67,21 @@ def eccentricity(graph, root):
 
 
 def biu(graph1):  # implementa metodo Bi(u), ritrona il nodo di eccentricità max nella fringe
-    graph = fsgm.find_largest_connected_component(graph1) # TODO move me to ifub
+    graph = fsgm.find_largest_connected_component(graph1)  # TODO move me to ifub
     my_node = None
     max_ecc = -1
     ecc, fringe = bfs_livelli(graph)  # la fringe si ottiene invocando il nodo con massimo grado
+
+    progress_bar = tqdm.tqdm(total=len(fringe), desc="Processing nodes")
+
     for node in fringe:
         e = eccentricity(graph, node)  # eccentricity viene calcolata facendo una bfs
         if e > max_ecc:
             max_ecc = e
             my_node = node
+
+        progress_bar.update(1)
+
+    progress_bar.close()
+
     return my_node, max_ecc
