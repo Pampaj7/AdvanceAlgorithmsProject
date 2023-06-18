@@ -162,4 +162,5 @@ def biu(graph):#implementa metodo Bi(u), ritrona il nodo di eccentricità max ne
         if e > max_ecc:
             max_ecc = e
             my_node = node
+            print()
     return my_node, max_ecc
