@@ -67,7 +67,7 @@ def eccentricity(graph, root):
 
 def biu(graph, start_node):  # implementa metodo Bi(u), ritrona il nodo di eccentricità max nella fringe
     max_ecc = -1
-    ecc, fringe = bfs_livelli(graph)  # la fringe si ottiene invocando il nodo con massimo grado
+    ecc, fringe = bfs_livelli(graph, start_node)  # la fringe si ottiene invocando il nodo con massimo grado
 
     progress_bar = tqdm.tqdm(total=len(fringe), desc="Processing nodes")
 
