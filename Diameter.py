@@ -14,8 +14,7 @@ def findMaxDegreeNodeGraph(graph):
     return max_deg_node
 
 
-def bfs_livelli(graph):  # ritrona la fringe, calcola da solo il nodo con massimo grado
-    start_node = findMaxDegreeNodeGraph(graph)
+def bfs_livelli(graph, start_node):  # ritrona la fringe, calcola da solo il nodo con massimo grado
     print('il nodo di massima centralità è: ', start_node)
     visited = set()
     last_level = {}
@@ -66,9 +65,7 @@ def eccentricity(graph, root):
     return amplitude
 
 
-def biu(graph1):  # implementa metodo Bi(u), ritrona il nodo di eccentricità max nella fringe
-    graph = fsgm.find_largest_connected_component(graph1)  # TODO move me to ifub
-    my_node = None
+def biu(graph, start_node):  # implementa metodo Bi(u), ritrona il nodo di eccentricità max nella fringe
     max_ecc = -1
     ecc, fringe = bfs_livelli(graph)  # la fringe si ottiene invocando il nodo con massimo grado
 
@@ -78,10 +75,27 @@ def biu(graph1):  # implementa metodo Bi(u), ritrona il nodo di eccentricità ma
         e = eccentricity(graph, node)  # eccentricity viene calcolata facendo una bfs
         if e > max_ecc:
             max_ecc = e
-            my_node = node
 
         progress_bar.update(1)
 
     progress_bar.close()
 
-    return my_node, max_ecc
+    return max_ecc
+
+
+def iFub(graph1):  # va riaggioranta la biuu
+    graph = fsgm.find_largest_connected_component(graph1)
+    start_node = findMaxDegreeNodeGraph(graph)
+
+    i = eccentricity(graph, start_node)
+    lb = i
+    ub = 2 * i
+    biuu = biu(graph, start_node)
+    while ub > lb:
+        if max(lb, biuu) > 2 * (i - 1):
+            return max(lb, biuu)
+        else:
+            lb = max(lb, biuu)
+            ub = 2 * (i - 1)
+        i = i - 1
+    return lb
