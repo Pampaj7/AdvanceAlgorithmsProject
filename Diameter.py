@@ -14,17 +14,19 @@ def findMaxDegreeNodeGraph(graph):
     return max_deg_node
 
 
-def bfs_livelli(graph, start_node):  # ritrona la fringe, calcola da solo il nodo con massimo grado
-    print('il nodo di massima centralità è: ', start_node)
+def bfs_livelli(graph, start_node, i):  # ritrona la fringe, calcola da solo il nodo con massimo grado
     visited = set()
     last_level = {}
 
     queue = deque([(start_node, 0)])
-    livello_massimo = -1
+    #livello_massimo = -1
     livelli = {start_node: 0}
 
     while queue:
         node, level = queue.popleft()
+        if level == i and node not in last_level:
+            #print('inserisco il nodo: ', node)
+            last_level[node] = 0
         if node not in visited:
             # print(node)
             visited.add(node)
@@ -34,16 +36,16 @@ def bfs_livelli(graph, start_node):  # ritrona la fringe, calcola da solo il nod
                 if neighbor not in visited:
                     queue.append((neighbor, level + 1))
                     livelli[neighbor] = level + 1
-                    if level > livello_massimo and neighbor not in last_level:
-                        livello_massimo = level
+                    #if level > livello_massimo and neighbor not in last_level:
+                     #   livello_massimo = level
                         # print('livello max aggiornato, inserisco il nodo: ',neighbor)
-                        last_level = {neighbor: 0}
-                    elif level == livello_massimo and neighbor not in last_level:
-                        # print('inserisco il nodo: ', neighbor)
-                        last_level[neighbor] = 0
+                    #    last_level = {neighbor: 0}
+                    #if level == i and neighbor not in last_level:
+                    #    print('inserisco il nodo: ', neighbor)
+                    #    last_level[neighbor] = 0
 
     print('numero nodi fringe: ', len(last_level.keys()))
-    return livello_massimo, last_level.keys()
+    return last_level.keys()
 
 
 def eccentricity(graph, root):
@@ -65,9 +67,9 @@ def eccentricity(graph, root):
     return amplitude
 
 
-def biu(graph, start_node):  # implementa metodo Bi(u), ritrona il nodo di eccentricità max nella fringe
+def biu(graph, start_node, i):  # implementa metodo Bi(u), ritrona il nodo di eccentricità max nella fringe
     max_ecc = -1
-    ecc, fringe = bfs_livelli(graph, start_node)  # la fringe si ottiene invocando il nodo con massimo grado
+    fringe = bfs_livelli(graph, start_node, i)  # la fringe si ottiene invocando il nodo con massimo grado
 
     progress_bar = tqdm.tqdm(total=len(fringe), desc="Processing nodes")
 
@@ -90,8 +92,8 @@ def iFub(graph1):  # va riaggioranta la biuu
     i = eccentricity(graph, start_node)
     lb = i
     ub = 2 * i
-    biuu = biu(graph, start_node)
     while ub > lb:
+        biuu = biu(graph, start_node, i)
         if max(lb, biuu) > 2 * (i - 1):
             return max(lb, biuu)
         else:

@@ -18,13 +18,13 @@ import time
 # UNION GRAPH
 
 
-dataset_files = [r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_article.csv",
-                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_book.csv",
-                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_incollection.csv",
-                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_inproceedings.csv",
-                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_mastersthesis.csv",
-                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_phdthesis.csv",
-                 r"C:\Users\leona\OneDrive\Desktop\DataSets\out-dblp_proceedings.csv"
+dataset_files = [r"/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_article.csv",
+                 # r"/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_book.csv",
+                 # r"/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_incollection.csv",
+                 # r"/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_inproceedings.csv",
+                 # r"/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_mastersthesis.csv",
+                 # r"/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_phdthesis.csv",
+                 # r"/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_proceedings.csv"
                  ]
 graph_list = []
 
@@ -39,8 +39,6 @@ for dataset in dataset_files:
     # print('verifico correttezza risultato della collab:')
     # print(cc.check_collab())
     graph_list.append(bipGraph)
-    print('getting biu of max degree node: ')
-    max_ecc_node, max_ecc = d.biu(bipGraph)
     start = time.time()
     print("--- %s seconds ---" % (time.time() - start))
     del bipGraph  # dealloca ram
@@ -58,7 +56,6 @@ print("Max collaboration author in union graph is: ",
 print('diameter of union...')
 start = time.time()
 
-max_ecc = d.biu(union_graph)
 print("The diameter is: ", d.iFub(union_graph))
 
 print("--- %s seconds ---" % (time.time() - start))
