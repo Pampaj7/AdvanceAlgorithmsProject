@@ -38,6 +38,12 @@ for dataset in dataset_files:
           author, "With collaborations: ", numCollab)
     # print('verifico correttezza risultato della collab:')
     # print(cc.check_collab())
+
+    strt = time.time()
+    print("the diameter is: ", d.iFub(bipGraph))
+
+    print("--- %s seconds ---" % (time.time() - strt))
+
     graph_list.append(bipGraph)
     start = time.time()
     print("--- %s seconds ---" % (time.time() - start))
