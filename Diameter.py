@@ -44,7 +44,7 @@ def bfs_livelli(graph, start_node, i):  # ritrona la fringe, calcola da solo il 
                     #    print('inserisco il nodo: ', neighbor)
                     #    last_level[neighbor] = 0
 
-    print('numero nodi fringe: ', len(last_level.keys()))
+    print('Fringe number of nodes: ', len(last_level.keys()))
     return last_level.keys()
 
 
