@@ -6,10 +6,10 @@ def build_author_graph(graph):
     max_edge = None
     max_collab = 0
     author_graph = nx.Graph()  # generazione nuovo grafo
-    num_nodes = len(graph.nodes)  # per prograss bar
+    num_nodes = len(graph.nodes)  # per progress bar
     progress_bar = tqdm(total=num_nodes, desc="Building author graph")
 
-    for node in graph.nodes:  # gurado tutti i nodi dello union
+    for node in graph.nodes:  # guardp tutti i nodi dello union
         progress_bar.update(1)
 
         if 'label' in graph.nodes[node] and graph.nodes[node]['label']['type'] == 'author':  # se è un autore
@@ -24,7 +24,7 @@ def build_author_graph(graph):
                         author_graph[node][author]['weight'] += 1
                         if author_graph[node][author]['weight'] > max_collab:
                             max_collab = author_graph[node][author]['weight']  # aggiorno per trovare la collaborazione
-                            max_edge = (node, author)  # migliore e la cerico nell'arco max_edge
+                            max_edge = (node, author)  # migliore e la carico nell'arco max_edge
                     elif graph.nodes[node] is not graph.nodes[author]:  # se l'arco non esiste lo creo, con peso 1
                         author_graph.add_edge(node, author, weight=1)
     progress_bar.close()
