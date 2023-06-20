@@ -21,8 +21,6 @@ def adapter_for_bipartiteGraphs(dataset_file):
         venue = 'journal'
     else:
         return 'journal'
-        # return None
-
     return venue
 
 
@@ -83,9 +81,6 @@ def build_bipartite_graph(dataset, dataset_file, mDate=2023):  # per 3 anni camb
                 'type': 'publication',
                 'id': publication_id,
                 'year': row['year'],
-                # 'title': row['title'],
-                # 'pages': row['pages'],
-                # 'publisher': row['publisher'],
                 'year_of_pub': year_of_pub,
                 'venue': row[venue]
             }

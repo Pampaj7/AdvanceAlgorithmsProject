@@ -1,6 +1,5 @@
 def find_author_with_most_collaborations(
-        graph):  # anche se vincent ha collaborato con 1488 articoli questo non significa che debba venire fuoori
-    # questo numero, perchè se ha collaborato in un articolo diverso con lo stesso autore noi lo contiamo due volte
+        graph):
     max_collaborations = 0
     author_with_max_collaborations = None
 

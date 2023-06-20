@@ -3,7 +3,7 @@ import FindSubGraphMax as fsgm
 import tqdm
 
 
-# ritorna il nodo di max grco per ottimizzare calcolo esatto del diametro
+# ritorna il nodo di max grado per ottimizzare calcolo esatto del diametro
 def findMaxDegreeNodeGraph(graph):
     max_deg = 0
     max_deg_node = None
@@ -19,7 +19,6 @@ def bfs_livelli(graph, start_node, i):  # ritrona la fringe, calcola da solo il 
     last_level = {}
 
     queue = deque([(start_node, 0)])
-    #livello_massimo = -1
     livelli = {start_node: 0}
 
     while queue:
@@ -36,33 +35,26 @@ def bfs_livelli(graph, start_node, i):  # ritrona la fringe, calcola da solo il 
                 if neighbor not in visited:
                     queue.append((neighbor, level + 1))
                     livelli[neighbor] = level + 1
-                    #if level > livello_massimo and neighbor not in last_level:
-                     #   livello_massimo = level
-                        # print('livello max aggiornato, inserisco il nodo: ',neighbor)
-                    #    last_level = {neighbor: 0}
-                    #if level == i and neighbor not in last_level:
-                    #    print('inserisco il nodo: ', neighbor)
-                    #    last_level[neighbor] = 0
 
     print('Fringe number of nodes: ', len(last_level.keys()))
     return last_level.keys()
 
 
 def eccentricity(graph, root):
-    visited = set()  # Insieme dei nodi visitati
-    queue = deque([(root, 0)])  # Coda per la BFS, con il nodo radice e il livello 0
-    amplitude = 0  # Amplitude dell'albero
+    visited = set()
+    queue = deque([(root, 0)])
+    amplitude = 0
 
     while queue:
-        node, level = queue.popleft()  # Estrae un nodo dalla coda
+        node, level = queue.popleft()
         if node not in visited:
             visited.add(node)
-            amplitude = max(amplitude, level)  # Aggiorna l'ampiezza se necessario
+            amplitude = max(amplitude, level)
 
-            neighbors = graph.neighbors(node)  # Ottiene i vicini del nodo
+            neighbors = graph.neighbors(node)
             for neighbor in neighbors:
                 if neighbor not in visited:
-                    queue.append((neighbor, level + 1))  # Aggiunge i vicini alla coda con il livello incrementato
+                    queue.append((neighbor, level + 1))
 
     return amplitude
 
@@ -85,7 +77,7 @@ def biu(graph, start_node, i):  # implementa metodo Bi(u), ritrona il nodo di ec
     return max_ecc
 
 
-def iFub(graph1):  # va riaggioranta la biuu
+def iFub(graph1):
     graph = fsgm.find_largest_connected_component(graph1)
     start_node = findMaxDegreeNodeGraph(graph)
 
