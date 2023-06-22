@@ -7,13 +7,13 @@ import Find_oldest_venue as fov
 import Diameter as d
 import time
 
-dataset_files = [r"dblp-all-csv/out-dblp_article.csv",
-                 r"dblp-all-csv/-dblp_book.csv",
-                 r"dblp-all-csv/-dblp_incollection.csv",
-                 r"dblp-all-csv/-dblp_inproceedings.csv",
-                 r"dblp-all-csv/-dblp_mastersthesis.csv",
-                 r"dblp-all-csv/-dblp_phdthesis.csv",
-                 r"dblp-all-csv/-dblp_proceedings.csv"
+dataset_files = [#r"dblp-all-csv/out-dblp_article.csv",
+                 r"dblp-all-csv/out-dblp_book.csv",
+                 r"dblp-all-csv/out-dblp_incollection.csv",
+                 #r"dblp-all-csv/out-dblp_inproceedings.csv",
+                 r"dblp-all-csv/out-dblp_mastersthesis.csv",
+                 r"dblp-all-csv/out-dblp_phdthesis.csv",
+                 r"dblp-all-csv/out-dblp_proceedings.csv"
                  ]
 
 graph_list = []
