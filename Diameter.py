@@ -26,7 +26,7 @@ def bfs_livelli(graph, start_node, i, year_of_pub=2023):  # ritrona la fringe, c
         if level == i and node not in last_level:
             # print('inserisco il nodo: ', node)
             if ('label' in graph.nodes[node] and graph.nodes[node]['label']['type'] == 'publication' and int(
-                    graph.nodes[node]['label']['year_of_pub']) < year_of_pub) or (
+                    graph.nodes[node]['label']['year_of_pub']) <= year_of_pub) or (
                     'label' in graph.nodes[node] and graph.nodes[node]['label']['type'] == 'author'):
                 last_level[node] = 0
         if node not in visited:

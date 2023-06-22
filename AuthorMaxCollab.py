@@ -11,7 +11,7 @@ def find_author_with_most_collaborations(
 
             for neighbor in graph.neighbors(node):
                 if 'label' in graph.nodes[neighbor] and graph.nodes[neighbor]['label']['type'] == 'publication' and int(
-                        graph.nodes[neighbor]['label']['year_of_pub']) < year_of_pub:
+                        graph.nodes[neighbor]['label']['year_of_pub']) <= year_of_pub:
                     authors = graph.neighbors(neighbor)
 
                     for author in authors:
