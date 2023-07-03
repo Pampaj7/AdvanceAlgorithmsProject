@@ -19,7 +19,7 @@ def bfs_livelli(graph, start_node, i, year_of_pub=2023):  # ritrona la fringe, c
     last_level = {}
 
     queue = deque([(start_node, 0)])
-    livelli = {start_node: 0}
+    #livelli = {start_node: 0}
 
     while queue:
         node, level = queue.popleft()
@@ -37,7 +37,7 @@ def bfs_livelli(graph, start_node, i, year_of_pub=2023):  # ritrona la fringe, c
             for neighbor in neighbors:
                 if neighbor not in visited:
                     queue.append((neighbor, level + 1))
-                    livelli[neighbor] = level + 1
+                    #livelli[neighbor] = level + 1
 
     print('Fringe number of nodes: ', len(last_level.keys()))
     return last_level.keys()
@@ -62,9 +62,9 @@ def eccentricity(graph, root):
     return amplitude
 
 
-def biu(graph, start_node, i):  # implementa metodo Bi(u), ritrona il nodo di eccentricità max nella fringe
+def biu(graph, start_node, i, year_of_pub = 2023):  # implementa metodo Bi(u), ritrona il nodo di eccentricità max nella fringe
     max_ecc = -1
-    fringe = bfs_livelli(graph, start_node, i)  # la fringe si ottiene invocando il nodo con massimo grado
+    fringe = bfs_livelli(graph, start_node, i, year_of_pub)  # la fringe si ottiene invocando il nodo con massimo grado
 
     progress_bar = tqdm.tqdm(total=len(fringe), desc="Processing nodes")
 
@@ -80,7 +80,7 @@ def biu(graph, start_node, i):  # implementa metodo Bi(u), ritrona il nodo di ec
     return max_ecc
 
 
-def iFub(graph1):
+def iFub(graph1, year_of_pub = 2023):
     graph = fsgm.find_largest_connected_component(graph1)
     start_node = findMaxDegreeNodeGraph(graph)
 
@@ -88,7 +88,7 @@ def iFub(graph1):
     lb = i
     ub = 2 * i
     while ub > lb:
-        biuu = biu(graph, start_node, i)
+        biuu = biu(graph, start_node, i, year_of_pub)
         if max(lb, biuu) > 2 * (i - 1):
             return max(lb, biuu)
         else:

@@ -6,7 +6,8 @@ import tqdm as tqdm
 def check_collab(author_name='Yang Liu'):
     dict = {}
     d = (r"/Users/gianlucagiuliani/Desktop/dblp-all-csv/out-dblp_article.csv")
-    df = ecc.read_csv_ignore_errors(d)
+    df = pd.read_csv(d)
+    #df = ecc.read_csv_ignore_errors(d)
     for index, row in tqdm.tqdm(df.iterrows()):
         authors = row['author']
 

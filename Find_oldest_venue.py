@@ -8,7 +8,7 @@ def find_oldest_venue(graph, year_of_pub=2023):
             year = str(graph.nodes[node]['label']['year'])
             venue = str(graph.nodes[node]['label']['venue'])
 
-            if year < oldest_year and venue != 'nan' and int(graph.nodes[node]['label']['year_of_pub']) < year_of_pub:
+            if year < oldest_year and venue != 'nan' and int(graph.nodes[node]['label']['year_of_pub']) <= year_of_pub:
                 oldest_year = year
                 oldest_venue = graph.nodes[node]['label']['venue']
 

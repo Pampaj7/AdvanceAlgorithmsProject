@@ -8,7 +8,7 @@ import Diameter as d
 import time
 
 dataset_files = [r"dblp-all-csv/out-dblp_article.csv",
-                 #r"dblp-all-csv/out-dblp_book.csv",
+                 r"dblp-all-csv/out-dblp_book.csv",
                  #r"dblp-all-csv/out-dblp_incollection.csv",
                  #r"dblp-all-csv/out-dblp_inproceedings.csv",
                  #r"dblp-all-csv/out-dblp_mastersthesis.csv",
@@ -22,11 +22,17 @@ for dataset in dataset_files:
     datasetClean = ecc.read_csv_ignore_errors(dataset)
     bipGraph = bbg.build_bipartite_graph(datasetClean, dataset)
 
+
+    strt = time.time()
     print("The oldest venue is: ", fov.find_oldest_venue(bipGraph))  # 1
+    print("--- %s seconds ---" % (time.time() - strt))
+
+    strt = time.time()
 
     author, numCollab = amc.find_author_with_most_collaborations(bipGraph)  # 3
     print("Max collaboration author is: ",
           author, "With collaborations: ", numCollab)
+    print("--- %s seconds ---" % (time.time() - strt))
 
     strt = time.time()
     print("the diameter is: ", d.iFub(bipGraph))  # 2
